@@ -63,6 +63,13 @@
             font-weight: 500;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+        /* Nueva clase para la cara de explicaciones con tamaño de fuente reducido */
+        .flashcard-content.explanation {
+            font-size: 0.9em; /* Tamaño más pequeño solo para explicaciones */
+            overflow-y: auto; /* Agrega scroll si el texto excede el espacio */
+            align-items: flex-start; /* Alinea el texto en la parte superior */
+            display: flex; /* Muestra la cara de explicaciones en flex */
+        }
         /* Estilos para los modos de color */
         .light-mode {
             background-color: #f4f6f9;
@@ -157,7 +164,7 @@
     <div id="flashcard" class="flashcard">
         <div class="flashcard-content front"></div>
         <div class="flashcard-content middle"></div>
-        <div class="flashcard-content back"></div>
+        <div class="flashcard-content back explanation"></div>
     </div>
     <div class="controls">
         <button class="primary-btn" onclick="showFace('front')">Pregunta</button>
@@ -176,9 +183,731 @@
 
 <script>
     const flashcards = [
-        { "question": "¿Qué es la inmunidad innata?", "answer": "Respuesta breve", "explanation": "Explicación detallada de la inmunidad innata." },
-        { "question": "¿Qué es el complemento?", "answer": "Respuesta breve", "explanation": "Explicación detallada del sistema de complemento." },
-        // Añadir más flashcards...
+{ 
+    "question": "¿Cuál es el receptor principal que reconoce β-glucanos en la pared de los hongos?", 
+    "answer": "Dectina-1.", 
+    "explanation": "El receptor **Dectina-1** es un **receptor tipo lectina C** que juega un papel esencial en el sistema inmune innato, particularmente en la **detección de β-glucanos**, los cuales son componentes importantes de la pared celular de muchos hongos. Este receptor se expresa en células inmunitarias como los **macrófagos**, **células dendríticas** y **neutrófilos**, y se activa al unirse a los β-glucanos en la superficie del hongo. Una vez activado, Dectina-1 desencadena una cascada de señalización intracelular que resulta en la producción de **citoquinas proinflamatorias** como IL-1β y TNF-α, promoviendo la respuesta inmune contra el hongo. Además, la activación de Dectina-1 facilita el reclutamiento de otras células inmunes y apoya la generación de una respuesta inmune adaptativa efectiva. Esta señalización específica es fundamental para la defensa del cuerpo contra las infecciones fúngicas, ya que permite el reconocimiento y respuesta rápida contra estos patógenos complejos."
+}, 
+{ 
+    "question": "¿Qué tipo de respuesta inmune innata se activa principalmente frente a hongos?", 
+    "answer": "Respuesta inflamatoria mediada por neutrófilos y macrófagos.", 
+    "explanation": "La respuesta inmune innata contra infecciones fúngicas está principalmente caracterizada por una **respuesta inflamatoria** en la que participan **neutrófilos** y **macrófagos**. Los neutrófilos son las primeras células en ser reclutadas al sitio de la infección fúngica. Estas células fagocitan (ingieren) los hongos y también liberan **redes extracelulares de neutrófilos** (NETs), estructuras compuestas de ADN y proteínas antimicrobianas que atrapan y destruyen al hongo. Los macrófagos, por su parte, también participan en la **fagocitosis** y, una vez activados, secretan citoquinas proinflamatorias como **TNF-α** e **IL-1β** que amplifican la respuesta inmune. Esta inflamación local no solo ayuda a contener la infección en el lugar, sino que también actúa como una señal para que otras células inmunes respondan, permitiendo una eliminación más efectiva del hongo." 
+}, 
+{ 
+    "question": "¿Qué citoquinas son fundamentales en la diferenciación de linfocitos T hacia el subtipo Th17 en la respuesta contra hongos?", 
+    "answer": "IL-6 y TGF-β.", 
+    "explanation": "La diferenciación de los linfocitos T hacia el subtipo **Th17** es un proceso clave en la respuesta inmunitaria adaptativa frente a infecciones fúngicas. Las citoquinas **IL-6** y **TGF-β** son esenciales para inducir esta diferenciación. IL-6 es una citoquina proinflamatoria que, en combinación con TGF-β, actúa como una señal que dirige a los linfocitos T CD4+ a diferenciarse en células Th17. Estas células Th17, a su vez, secretan citoquinas como **IL-17** e **IL-22** que son críticas en la defensa contra hongos, ya que activan células epiteliales para que produzcan **péptidos antimicrobianos** y fomentan el reclutamiento de **neutrófilos** al sitio de infección, fortaleciendo la respuesta inmune adaptativa." 
+}, 
+{ 
+    "question": "¿Cuál es el papel de los neutrófilos en la respuesta inmunitaria contra infecciones fúngicas?", 
+    "answer": "Fagocitosis y liberación de redes extracelulares de ADN (NETs) que atrapan hongos.", 
+    "explanation": "Los **neutrófilos** desempeñan un papel crucial en la defensa del cuerpo contra infecciones fúngicas a través de dos mecanismos principales: la **fagocitosis** y la liberación de **trampas extracelulares de neutrófilos** (NETs). Durante la fagocitosis, los neutrófilos engullen los hongos y los destruyen mediante **enzimas líticas** y **especies reactivas de oxígeno** dentro de sus lisosomas. Las NETs, por otro lado, son estructuras compuestas de ADN que contienen proteínas antimicrobianas y que se liberan para formar una red que atrapa y neutraliza a los hongos. Esta estrategia no solo facilita el control de la infección, sino que también evita que los hongos se diseminen a otros tejidos." 
+}, 
+{ 
+    "question": "¿Qué receptor del sistema inmune innato es crítico para detectar la quitina en la pared de los hongos?", 
+    "answer": "Receptor de lectina tipo C (CLR).", 
+    "explanation": "Los **receptores de lectina tipo C** (CLRs) son receptores esenciales en el sistema inmune innato para detectar **quitina**, un componente estructural de la pared celular de muchos hongos. Cuando los CLRs reconocen quitina, activan una serie de señales intracelulares que resultan en la **producción de citoquinas proinflamatorias** y el reclutamiento de células inmunitarias. Esto facilita la activación de **neutrófilos** y **macrófagos** en el sitio de infección, creando un entorno hostil para el hongo e impulsando la respuesta inmune innata. La activación de los CLRs también es importante para iniciar una respuesta adaptativa más específica contra el hongo." 
+}, 
+{ 
+    "question": "¿Qué citoquinas proinflamatorias se liberan en respuesta a la activación de Dectina-1?", 
+    "answer": "IL-1β y TNF-α.", 
+    "explanation": "La activación del receptor **Dectina-1** tras el reconocimiento de β-glucanos en la pared celular de los hongos desencadena la liberación de las citoquinas proinflamatorias **IL-1β** y **TNF-α**. IL-1β juega un rol importante en la amplificación de la respuesta inflamatoria y en el reclutamiento de células inmunitarias adicionales al sitio de infección. Por otro lado, TNF-α potencia la actividad de **neutrófilos** y **macrófagos**, incrementando su capacidad para eliminar al hongo. Este proceso ayuda a contener y controlar la infección, promoviendo un ambiente hostil para los hongos invasores." 
+}, 
+{ 
+    "question": "¿Qué mecanismo emplean los macrófagos para controlar las infecciones fúngicas intracelulares?", 
+    "answer": "Activación de macrófagos por IFN-γ para potenciar la actividad microbicida.", 
+    "explanation": "Los **macrófagos** controlan las infecciones fúngicas intracelulares mediante un mecanismo que se activa en presencia de **IFN-γ** (interferón gamma). Esta citoquina, liberada por células NK y linfocitos T, activa a los macrófagos, aumentando su capacidad microbicida a través de la producción de **especies reactivas de oxígeno** y **óxido nítrico**, que son letales para los hongos. Esta activación optimiza la capacidad de los macrófagos para contener y eliminar infecciones fúngicas intracelulares, haciendo de ellos una pieza clave en la respuesta inmunitaria contra hongos que persisten dentro de las células." 
+}, 
+{ 
+    "question": "¿Qué subtipo de linfocito T es clave en la inmunidad adaptativa contra los hongos?", 
+    "answer": "Th17.", 
+    "explanation": "Los **linfocitos T** del subtipo **Th17** juegan un papel crucial en la **inmunidad adaptativa** frente a infecciones fúngicas. Estos linfocitos Th17 producen citoquinas como **IL-17** e **IL-22** que actúan en los tejidos infectados promoviendo la producción de **péptidos antimicrobianos** y el reclutamiento de neutrófilos. Este tipo de respuesta es particularmente eficaz contra hongos y contribuye a prevenir la diseminación de la infección, reforzando las barreras inmunológicas en los tejidos y permitiendo una eliminación más efectiva del patógeno." 
+}, 
+{ 
+    "question": "¿Qué función cumple la interleucina IL-17 en la inmunidad contra los hongos?", 
+    "answer": "Estimula la producción de péptidos antimicrobianos y la quimiotaxis de neutrófilos.", 
+    "explanation": "La **IL-17** es una citoquina producida por los linfocitos Th17 y juega un rol central en la **inmunidad contra hongos**. IL-17 actúa sobre las células epiteliales y otras células del tejido para inducir la **producción de péptidos antimicrobianos**, que ayudan a eliminar a los patógenos en el sitio de infección. Además, IL-17 promueve la **quimiotaxis de neutrófilos**, permitiendo que estos fagociten y destruyan el hongo de manera efectiva. Esto fortalece la primera línea de defensa y evita la propagación del hongo hacia otros tejidos." 
+}, 
+{ 
+    "question": "¿Qué receptor de tipo Toll (TLR) es esencial para el reconocimiento de Candida albicans?", 
+    "answer": "TLR2.", 
+    "explanation": "El **TLR2** es un **receptor de tipo Toll** importante para el reconocimiento de **Candida albicans**, un hongo patógeno que causa infecciones en humanos. Al unirse a los componentes de la pared celular de Candida, TLR2 activa rutas de señalización que resultan en la producción de **citoquinas proinflamatorias** y otros mediadores inmunitarios, iniciando una respuesta rápida contra el hongo. Esta respuesta ayuda a controlar la infección en sus etapas iniciales y coordina la actividad de otras células inmunitarias, lo que facilita una eliminación más eficaz del patógeno." 
+},
+{ 
+    "question": "¿Cuál es la citoquina más importante en la respuesta inmune adaptativa contra hongos?", 
+    "answer": "IL-17.", 
+    "explanation": "La **IL-17** es una <<citoquina>> clave en la respuesta adaptativa contra infecciones fúngicas, especialmente aquellas causadas por hongos como <<Candida albicans>>. Secretada por linfocitos T del subtipo <<Th17>>, IL-17 promueve la <<quimiotaxis de neutrófilos>> hacia el sitio de la infección, reforzando la respuesta inmune innata. Además, estimula la <<producción de péptidos antimicrobianos>> en las células epiteliales, lo que ayuda a crear una barrera protectora en los tejidos mucosos y epiteliales. La actividad de IL-17 es especialmente relevante en infecciones crónicas o recurrentes, ya que facilita una respuesta prolongada y adaptada contra los hongos, evitando su diseminación."
+}, 
+{ 
+    "question": "¿Qué célula del sistema inmune innato es la primera línea de defensa contra infecciones fúngicas?", 
+    "answer": "Neutrófilos.", 
+    "explanation": "Los <<neutrófilos>> representan la primera línea de defensa en la inmunidad innata contra hongos. Una de sus funciones principales es la <<fagocitosis>>, mediante la cual ingieren y eliminan a los patógenos fúngicos. Además, los neutrófilos liberan <<trampas extracelulares de neutrófilos>> (NETs), redes de ADN que atrapan y destruyen a los hongos. Estos mecanismos son cruciales en infecciones fúngicas agudas y localizadas, ya que permiten una rápida respuesta en el sitio de infección y evitan la propagación de los patógenos a otros tejidos."
+}, 
+{ 
+    "question": "¿Qué tipo de respuesta de linfocitos T es clave contra infecciones por Candida albicans?", 
+    "answer": "Respuesta Th17.", 
+    "explanation": "La <<respuesta Th17>> es fundamental en la defensa adaptativa contra infecciones por <<Candida albicans>>. Los linfocitos T del subtipo <<Th17>> producen <<IL-17>> e <<IL-22>>, citoquinas que activan células epiteliales para que produzcan <<péptidos antimicrobianos>> y atraigan neutrófilos al área infectada. Esta respuesta es esencial para el control de infecciones fúngicas en superficies mucosas, evitando tanto la colonización excesiva como la diseminación sistémica de los hongos."
+}, 
+{ 
+    "question": "¿Qué receptor en macrófagos reconoce el componente β-glucano en la pared celular de los hongos?", 
+    "answer": "Dectina-1.", 
+    "explanation": "El receptor <<Dectina-1>> en los <<macrófagos>> es crucial para el reconocimiento de <<β-glucanos>>, un componente mayoritario de la pared celular de muchos hongos patógenos. Al unirse a estos β-glucanos, Dectina-1 activa la <<vía de señalización Syk/Card9>>, que desencadena la producción de <<citoquinas proinflamatorias>> y facilita la <<fagocitosis>> del hongo. Esta activación contribuye a una respuesta rápida y eficaz frente a infecciones fúngicas."
+}, 
+{ 
+    "question": "¿Qué rol tiene la IL-22 en la respuesta inmune contra hongos?", 
+    "answer": "Promueve la producción de proteínas antimicrobianas en las mucosas.", 
+    "explanation": "La <<IL-22>> es una citoquina importante en la defensa de las superficies mucosas contra los hongos. Producida por linfocitos <<Th17>> y <<NK>>, IL-22 actúa sobre las <<células epiteliales>> para inducir la <<síntesis de proteínas antimicrobianas>>. Estas proteínas crean un ambiente hostil en la superficie de las mucosas, protegiendo contra la colonización y el crecimiento excesivo de los hongos. Esta función de IL-22 es particularmente relevante en mucosas orales, intestinales y respiratorias."
+}, 
+{ 
+    "question": "¿Qué vía de señalización se activa principalmente tras la unión de Dectina-1 a β-glucanos?", 
+    "answer": "Vía Syk/Card9.", 
+    "explanation": "La <<vía Syk/Card9>> es activada tras el reconocimiento de <<β-glucanos>> por el receptor <<Dectina-1>> en las células inmunitarias, como los <<macrófagos>> y <<células dendríticas>>. Esta vía de señalización es esencial para la producción de <<citoquinas proinflamatorias>> como IL-1β y TNF-α, que promueven la inflamación y el reclutamiento de células inmunes al sitio de infección. La activación de esta vía también potencia la <<respuesta adaptativa>> al activar la diferenciación de células T hacia el subtipo Th17, lo que amplifica la respuesta antifúngica."
+}, 
+{ 
+    "question": "¿Cuál es el mecanismo de acción de las defensinas contra hongos?", 
+    "answer": "Rompen las membranas fúngicas.", 
+    "explanation": "Las <<defensinas>> son <<péptidos antimicrobianos>> que se producen en células epiteliales y ciertos leucocitos, y desempeñan un papel crucial en la defensa contra hongos. Su mecanismo de acción implica la <<disrupción de la membrana fúngica>>, lo que altera la permeabilidad celular del hongo y finalmente causa su lisis. Esta acción es rápida y efectiva, y ayuda a evitar que los hongos establezcan una infección en las superficies corporales."
+}, 
+{ 
+    "question": "¿Qué receptor tipo Toll es crítico en la detección de glucanos fúngicos?", 
+    "answer": "TLR2.", 
+    "explanation": "El <<TLR2>> es un receptor tipo Toll que juega un papel esencial en el reconocimiento de <<glucanos fúngicos>>. Al detectar estos glucanos, TLR2 activa rutas de señalización que resultan en la producción de <<citoquinas proinflamatorias>> y otras moléculas que amplifican la respuesta inmunitaria. Esta activación inicial es fundamental para contener la infección en sus etapas tempranas y coordinar la respuesta de otras células inmunes hacia el hongo invasor."
+}, 
+{ 
+    "question": "¿Qué factor de transcripción es esencial para la diferenciación de linfocitos Th17?", 
+    "answer": "RORγt.", 
+    "explanation": "El <<factor de transcripción RORγt>> es fundamental para la diferenciación de <<linfocitos Th17>>. Este factor regula la expresión de citoquinas características de Th17, como <<IL-17>> e <<IL-22>>, que son necesarias para una respuesta adaptativa efectiva contra los hongos. RORγt es activado por citoquinas específicas, como IL-6 y TGF-β, en un proceso que permite que los linfocitos Th17 se desarrollen y actúen en los sitios de infección fúngica, promoviendo una respuesta inmune robusta y localizada."
+}, 
+{ 
+    "question": "¿Qué rol tiene la IL-12 en la inmunidad contra hongos?", 
+    "answer": "Promueve la respuesta Th1 y la producción de IFN-γ.", 
+    "explanation": "La <<IL-12>> es una citoquina que desempeña un papel importante en la inmunidad contra hongos al promover la <<respuesta Th1>>. Esta citoquina induce la producción de <<IFN-γ>> en linfocitos Th1 y células NK, lo que potencia la actividad de los <<macrófagos>> para fagocitar y destruir los hongos. La respuesta Th1 es especialmente eficaz en la defensa contra hongos intracelulares, ya que aumenta la capacidad microbicida de los macrófagos a través de especies reactivas de oxígeno y nitrógeno."
+},
+{ 
+    "question": "¿Qué mecanismo de evasión emplea Candida albicans para evitar la detección inmunitaria?", 
+    "answer": "Cambia de forma levaduriforme a hifa para evadir el sistema inmune.", 
+    "explanation": "Candida albicans utiliza un mecanismo de <<cambio morfológico>> de forma levaduriforme a hifa para evadir el sistema inmune. Este cambio de <<morfología>> le permite adaptarse a diferentes ambientes y escapar del reconocimiento por células inmunes, ya que la forma hifal es menos susceptible a la <<fagocitosis>> por células como <<macrófagos>> y <<neutrófilos>>. Esta transición no solo ayuda a evadir la detección, sino que también facilita la invasión de tejidos y la persistencia en el huésped."
+}, 
+{ 
+    "question": "¿Qué subtipo de linfocito T es esencial para la inmunidad en infecciones mucocutáneas por hongos?", 
+    "answer": "Th17.", 
+    "explanation": "El subtipo de <<linfocito T Th17>> es crucial en la respuesta inmune adaptativa contra infecciones mucocutáneas por hongos. Estos linfocitos producen citoquinas como <<IL-17>> e <<IL-22>>, que activan células epiteliales para que produzcan <<péptidos antimicrobianos>> y faciliten el reclutamiento de <<neutrófilos>>. Esta respuesta permite contener y eliminar infecciones fúngicas en superficies como la piel y las mucosas, protegiendo contra hongos invasores como Candida spp."
+}, 
+{ 
+    "question": "¿Cuál es el papel del interferón gamma (IFN-γ) en la respuesta contra hongos intracelulares como Histoplasma capsulatum?", 
+    "answer": "Activa los macrófagos para aumentar su actividad fungicida.", 
+    "explanation": "El <<interferón gamma>> (IFN-γ) es una <<citoquina>> producida principalmente por células NK y linfocitos Th1, que juega un papel central en la <<activación de macrófagos>> para combatir hongos intracelulares como Histoplasma capsulatum. Al activar los macrófagos, IFN-γ induce la producción de <<especies reactivas de oxígeno>> y <<óxido nítrico>>, aumentando así la capacidad microbicida de estos para destruir al hongo. Esta activación es clave para el control de infecciones fúngicas que sobreviven dentro de las células."
+}, 
+{ 
+    "question": "¿Qué receptor de reconocimiento de patrones está involucrado en la detección de mananos fúngicos?", 
+    "answer": "Receptor de manosa.", 
+    "explanation": "El <<receptor de manosa>> es un <<receptor de reconocimiento de patrones>> (PRR) que desempeña un papel importante en la detección de <<mananos>>, componentes de la pared celular de muchos hongos, incluyendo Candida spp. Este receptor se encuentra en la superficie de <<macrófagos>> y otras células del sistema inmune innato y, al unirse a mananos, facilita la <<fagocitosis>> del hongo y activa la producción de <<citoquinas proinflamatorias>>, promoviendo una respuesta inmune efectiva contra el patógeno."
+}, 
+{ 
+    "question": "¿Qué citoquina inhibe la respuesta inflamatoria en infecciones crónicas por hongos?", 
+    "answer": "IL-10.", 
+    "explanation": "La <<IL-10>> es una citoquina con propiedades <<antiinflamatorias>> que juega un papel regulador en infecciones crónicas por hongos. Producida por varias células inmunes, como <<macrófagos>> y <<células T reguladoras>>, IL-10 modula la inflamación inhibiendo la producción de citoquinas proinflamatorias, evitando así el daño tisular. Aunque este efecto es beneficioso para controlar la inflamación crónica, puede también dificultar la eliminación completa del hongo al suprimir la actividad de <<macrófagos>> y <<células T>>."
+}, 
+{ 
+    "question": "¿Cuál es el principal componente de la pared celular de los hongos que desencadena la respuesta inmune?", 
+    "answer": "β-glucano.", 
+    "explanation": "El <<β-glucano>> es un componente importante de la <<pared celular de los hongos>> y un potente activador de la respuesta inmune. Detectado por receptores como <<Dectina-1>>, el β-glucano activa la <<vía Syk/Card9>>, que desencadena la producción de <<citoquinas proinflamatorias>> y promueve la <<fagocitosis>> de los hongos por parte de células inmunes como los <<macrófagos>>. Esta interacción inicial es fundamental para iniciar una respuesta innata rápida y eficaz frente a infecciones fúngicas."
+}, 
+{ 
+    "question": "¿Qué estructura evita la fagocitosis en Cryptococcus neoformans?", 
+    "answer": "Cápsula polisacárida.", 
+    "explanation": "La <<cápsula polisacárida>> de Cryptococcus neoformans es una estructura que rodea al hongo y le permite evadir la <<fagocitosis>> por células inmunes como <<macrófagos>> y <<neutrófilos>>. Esta cápsula está compuesta principalmente de <<glucuronoxilomanano>> y otros polisacáridos que interfieren con el reconocimiento y la ingesta del hongo. Además, la cápsula tiene propiedades inmunosupresoras que dificultan la activación de la respuesta inmune, permitiendo que el hongo sobreviva y se disemine en el huésped."
+}, 
+{ 
+    "question": "¿Qué papel cumple la IL-17 en la inmunidad cutánea contra hongos?", 
+    "answer": "Induce quimiotaxis de neutrófilos y producción de péptidos antimicrobianos.", 
+    "explanation": "La <<IL-17>> es una citoquina producida por los linfocitos <<Th17>> que juega un rol fundamental en la <<inmunidad cutánea>> contra hongos. IL-17 induce la <<quimiotaxis de neutrófilos>>, lo que permite que estos fagociten y destruyan los hongos en el sitio de infección. Además, IL-17 estimula las <<células epiteliales>> para que produzcan <<péptidos antimicrobianos>> que ayudan a eliminar los patógenos fúngicos en la piel y las mucosas. Esto refuerza la barrera protectora contra la infección y previene la diseminación de los hongos."
+}, 
+{ 
+    "question": "¿Qué receptor tipo lectina en células dendríticas detecta quitina en hongos?", 
+    "answer": "Dectina-2.", 
+    "explanation": "El <<Dectina-2>> es un receptor tipo lectina expresado en <<células dendríticas>> y otros leucocitos, que detecta la <<quitina>>, un componente estructural importante en la pared celular de los hongos. Cuando Dectina-2 reconoce quitina, activa vías de señalización que conducen a la producción de <<citoquinas proinflamatorias>> y al reclutamiento de células inmunitarias, facilitando así la <<respuesta inmune innata>>. Esta activación permite una detección rápida y una respuesta eficaz frente a hongos que contienen quitina en su estructura."
+}, 
+{ 
+    "question": "¿Qué citoquinas son esenciales para la activación de células Th17 en respuesta a infecciones fúngicas?", 
+    "answer": "IL-6 y TGF-β.", 
+    "explanation": "Las citoquinas <<IL-6>> y <<TGF-β>> son esenciales para la activación y diferenciación de <<células Th17>> en respuesta a infecciones fúngicas. IL-6 actúa como una señal inflamatoria inicial, mientras que TGF-β, en conjunto con IL-6, induce la diferenciación de linfocitos T hacia el <<subtipo Th17>>. Estos linfocitos producen <<IL-17>> y <<IL-22>>, citoquinas clave en la inmunidad contra hongos que promueven el reclutamiento de <<neutrófilos>> y la producción de <<péptidos antimicrobianos>>, ayudando a contener y eliminar al patógeno."
+},
+{ 
+    "question": "¿Cuál es el principal tipo de interferón producido en respuesta a infecciones virales?", 
+    "answer": "Interferones de tipo I (IFN-α e IFN-β).", 
+    "explanation": "Los <<interferones de tipo I>>, específicamente <<IFN-α>> e <<IFN-β>>, son citoquinas fundamentales en la <<respuesta inmune innata>> contra infecciones virales. Estas moléculas son producidas por células infectadas y células inmunes en respuesta a la detección de componentes virales. Su función principal es inducir un <<estado antiviral>> en las células vecinas, activando genes que inhiben la replicación viral y estimulan la <<presentación de antígenos>>. Además, los interferones de tipo I promueven la activación de <<células NK>> y <<células T>>, lo cual es crucial para eliminar células infectadas."
+}, 
+{ 
+    "question": "¿Qué células son las primeras en responder a una infección viral mediante la secreción de interferones?", 
+    "answer": "Células dendríticas plasmocitoides.", 
+    "explanation": "Las <<células dendríticas plasmocitoides>> (pDCs) son consideradas los primeros respondientes en infecciones virales debido a su capacidad única de producir grandes cantidades de <<interferones de tipo I>> (IFN-α e IFN-β) al detectar componentes virales. Estas células poseen receptores especializados como <<TLR7>> y <<TLR9>>, que detectan ARN y ADN viral, respectivamente, y responden rápidamente mediante la secreción de interferones. Esta producción masiva de interferones por pDCs contribuye a establecer un ambiente antiviral y a coordinar la activación de otras células del sistema inmune."
+}, 
+{ 
+    "question": "¿Qué receptor de reconocimiento de patrones es esencial para detectar ARN viral en el citoplasma?", 
+    "answer": "RIG-I.", 
+    "explanation": "El <<RIG-I>> (Retinoic acid-inducible gene I) es un receptor de reconocimiento de patrones (PRR) que juega un papel esencial en la <<detección de ARN viral>> en el citoplasma de las células. Este receptor reconoce específicamente <<ARN de cadena simple>> con extremos trifosfato, una característica común en el ARN de muchos virus. La activación de RIG-I desencadena una cascada de señalización que culmina en la producción de <<interferones de tipo I>> y otras citoquinas proinflamatorias, iniciando así una respuesta antiviral eficaz."
+}, 
+{ 
+    "question": "¿Qué molécula viral es reconocida por el receptor TLR3?", 
+    "answer": "ARN de doble cadena (dsRNA).", 
+    "explanation": "El receptor <<TLR3>> es un receptor tipo Toll que detecta específicamente <<ARN de doble cadena>> (dsRNA), una molécula viral que se forma durante la replicación de muchos virus. La detección de dsRNA por TLR3, que se encuentra en compartimentos endosomales, induce una <<respuesta inmune innata>> que incluye la producción de <<interferones de tipo I>> y otras citoquinas proinflamatorias. Esta activación es crucial para establecer un ambiente antiviral temprano que limita la propagación del virus en el organismo."
+}, 
+{ 
+    "question": "¿Qué célula del sistema inmune es crucial en la eliminación de células infectadas por virus?", 
+    "answer": "Célula T citotóxica (CTL).", 
+    "explanation": "Las <<células T citotóxicas>> (CTL) son esenciales en la <<inmunidad adaptativa>> contra infecciones virales debido a su capacidad para reconocer y eliminar <<células infectadas por virus>>. Estas células identifican antígenos virales presentados por el <<MHC clase I>> en la superficie de células infectadas. Una vez que las CTL se activan, liberan <<perforinas>> y <<granzimas>> que inducen la apoptosis en la célula infectada, eliminando el reservorio viral y previniendo la propagación de la infección."
+}, 
+{ 
+    "question": "¿Qué mecanismo de las células NK permite su activación en presencia de células infectadas por virus?", 
+    "answer": "Detección de la baja expresión de MHC clase I.", 
+    "explanation": "Las <<células NK>> (natural killer) emplean un mecanismo de <<detección de la baja expresión de MHC clase I>> para activarse en presencia de células infectadas por virus. Muchos virus interfieren con la expresión del MHC clase I para evitar ser reconocidos por las células T citotóxicas, pero esta baja expresión es una señal de activación para las células NK. Al detectar la disminución de MHC-I, las células NK liberan <<citoquinas>> y <<moléculas citotóxicas>> que destruyen la célula infectada, desempeñando un rol importante en la inmunidad antiviral temprana."
+}, 
+{ 
+    "question": "¿Qué tipo de inmunoglobulina es más eficaz en la respuesta inmune contra virus en mucosas?", 
+    "answer": "IgA.", 
+    "explanation": "La <<IgA>> es la inmunoglobulina predominante en las <<mucosas>> y es especialmente eficaz en la <<inmunidad antiviral>> en estas superficies. La IgA secretora se encuentra en una forma dimerizada que le permite resistir condiciones ambientales adversas en las mucosas. Su función principal es <<neutralizar>> los virus antes de que puedan entrar en las células epiteliales, bloqueando así la infección en sus primeras etapas y previniendo la diseminación viral en el organismo."
+}, 
+{ 
+    "question": "¿Qué rol cumple el complejo mayor de histocompatibilidad clase I (MHC-I) en infecciones virales?", 
+    "answer": "Presentación de antígenos virales a células T CD8+.", 
+    "explanation": "El <<MHC clase I>> es esencial en la <<respuesta inmune adaptativa>> contra infecciones virales, ya que presenta <<antígenos virales>> derivados de proteínas intracelulares a las <<células T CD8+>> (citotóxicas). Esta presentación permite que las células T reconozcan y eliminen células infectadas, contribuyendo a controlar la diseminación viral. El MHC-I actúa así como un puente entre la infección intracelular y la activación de una respuesta inmunológica específica y efectiva."
+}, 
+{ 
+    "question": "¿Cuál es la función principal de los anticuerpos neutralizantes en la inmunidad antiviral?", 
+    "answer": "Bloquear la entrada del virus en las células.", 
+    "explanation": "Los <<anticuerpos neutralizantes>> son proteínas específicas que se unen a <<epítopos virales>> en la superficie del virus, bloqueando su capacidad para unirse a los receptores de las células huésped. Esta <<neutralización>> impide la <<entrada del virus>> en las células, lo que evita la replicación viral y protege a las células de la infección. Los anticuerpos neutralizantes son una parte importante de la inmunidad humoral y son inducidos principalmente por la inmunidad adaptativa."
+}, 
+{ 
+    "question": "¿Qué proteína del sistema complemento es clave en la lisis de partículas virales?", 
+    "answer": "C9, que forma el complejo de ataque a la membrana.", 
+    "explanation": "La <<proteína C9>> es un componente terminal del <<sistema de complemento>> que participa en la <<formación del complejo de ataque a la membrana>> (MAC). Cuando el MAC se ensambla en la membrana de una partícula viral o una célula infectada, crea poros que llevan a la <<lisis de la célula o partícula viral>>, destruyéndola. Esta actividad del complemento ayuda a eliminar partículas virales y previene la propagación de la infección."
+},
+{ 
+    "question": "¿Qué citoquina liberada por las células infectadas ayuda a reducir la replicación viral en células vecinas?", 
+    "answer": "IFN-α.", 
+    "explanation": "La <<IFN-α>> es una <<citoquina antiviral>> perteneciente a los interferones de tipo I, que es liberada por células infectadas en respuesta a la presencia de virus. Esta citoquina actúa sobre las células vecinas, induciendo en ellas un <<estado antiviral>> mediante la activación de varios genes antivirales, como los que codifican para <<proteínas de respuesta antiviral>>. Este proceso previene la replicación viral en las células no infectadas cercanas y limita la propagación del virus en el organismo, siendo un mecanismo crucial en las primeras etapas de defensa contra infecciones virales."
+}, 
+{ 
+    "question": "¿Cuál es el receptor que reconoce DNA viral en el citosol?", 
+    "answer": "cGAS (cGMP-AMP sintasa).", 
+    "explanation": "El receptor <<cGAS>> (cGMP-AMP sintasa) detecta la presencia de <<DNA viral>> en el <<citosol>> de las células. Al unirse al ADN viral, cGAS cataliza la formación de <<cGAMP>>, un segundo mensajero que activa el receptor <<STING>>. Esta activación desencadena una cascada de señalización que culmina en la producción de <<interferones de tipo I>> y otras citoquinas proinflamatorias, activando una respuesta inmune potente contra el virus. Este mecanismo es particularmente importante en infecciones por virus de ADN."
+}, 
+{ 
+    "question": "¿Qué rol tiene la proteína MxA en la respuesta antiviral?", 
+    "answer": "Inhibe la replicación del ARN viral.", 
+    "explanation": "La <<proteína MxA>> es una <<proteína antiviral>> inducida por interferones de tipo I que juega un rol crucial en la inhibición de la <<replicación del ARN viral>>. MxA se une específicamente a componentes virales, como el ARN o las proteínas de la cápside, e interfiere en el proceso de replicación del virus. Este mecanismo es particularmente efectivo contra virus de ARN, como la influenza, y ayuda a contener la infección en las etapas iniciales, previniendo la propagación del virus en el huésped."
+}, 
+{ 
+    "question": "¿Qué molécula es responsable de la activación de linfocitos T CD8+ por células dendríticas en infecciones virales?", 
+    "answer": "Complejo MHC-I cargado con péptidos virales.", 
+    "explanation": "El <<complejo MHC-I>> en las <<células dendríticas>> presenta <<péptidos virales>> en su superficie, permitiendo la activación de <<linfocitos T CD8+>> en infecciones virales. Esta interacción es clave para que las células T citotóxicas reconozcan específicamente las células infectadas y se activen para eliminarlas mediante la liberación de perforinas y granzimas, evitando así la diseminación del virus en el organismo."
+}, 
+{ 
+    "question": "¿Qué citoquinas son fundamentales para el desarrollo de linfocitos T de memoria específicos para virus?", 
+    "answer": "IL-2 y IL-15.", 
+    "explanation": "Las citoquinas <<IL-2>> y <<IL-15>> son esenciales en el desarrollo y mantenimiento de <<linfocitos T de memoria>> específicos para virus. IL-2 es fundamental en las fases iniciales de expansión clonal y diferenciación, mientras que IL-15 es crucial para la <<supervivencia a largo plazo>> de las células T de memoria. Estas citoquinas garantizan que el sistema inmune pueda responder de manera rápida y eficiente a infecciones virales futuras mediante la reactivación de células de memoria."
+}, 
+{ 
+    "question": "¿Cuál es el papel de las células T CD4+ en la inmunidad frente a virus intracelulares?", 
+    "answer": "Ayuda a las células B en la producción de anticuerpos y estimula las células T CD8+.", 
+    "explanation": "Las <<células T CD4+>> juegan un papel esencial en la <<inmunidad adaptativa>> frente a virus intracelulares al proporcionar <<ayuda a las células B>> para la producción de anticuerpos específicos y estimular la activación y función de <<células T CD8+>>. Estas funciones colaboran para generar una respuesta antiviral eficaz: los anticuerpos neutralizan los virus en el exterior de las células, mientras que las células T CD8+ eliminan células infectadas, limitando así la diseminación del virus."
+}, 
+{ 
+    "question": "¿Qué proteína de virus como el VIH permite la evasión de la respuesta inmune al reducir la expresión de MHC-I?", 
+    "answer": "Nef.", 
+    "explanation": "La proteína <<Nef>> en el <<VIH>> es responsable de reducir la <<expresión de MHC-I>> en la superficie de las células infectadas. Al disminuir la presentación de <<antígenos virales>> en el MHC-I, Nef dificulta el reconocimiento de las células infectadas por las <<células T CD8+>> citotóxicas, permitiendo que el virus escape de la detección inmune. Este mecanismo de evasión es clave en la patogénesis del VIH y contribuye a su persistencia en el huésped."
+}, 
+{ 
+    "question": "¿Qué tipo de célula dendrítica es más efectiva en la presentación de antígenos virales a células T?", 
+    "answer": "Células dendríticas convencionales.", 
+    "explanation": "Las <<células dendríticas convencionales>> son las más eficaces en la <<presentación de antígenos virales>> a las células T. Estas células capturan y procesan los <<antígenos virales>> y los presentan en el <<MHC clase I>> y <<MHC clase II>>, activando tanto células T CD8+ como células T CD4+. Esta capacidad de presentación dual permite una activación robusta de la respuesta inmune adaptativa contra los virus."
+}, 
+{ 
+    "question": "¿Qué función tiene el receptor PD-1 en linfocitos T durante infecciones virales crónicas?", 
+    "answer": "Induce un estado de agotamiento funcional en células T.", 
+    "explanation": "El <<receptor PD-1>> es una <<proteína de inhibición>> que juega un rol importante en las <<infecciones virales crónicas>>. Al unirse a su ligando PD-L1, PD-1 induce un estado de <<agotamiento funcional>> en los <<linfocitos T>>, limitando su capacidad para proliferar y producir citoquinas. Esta respuesta es adaptativa, ya que protege al huésped del daño por inflamación crónica, pero también permite que el virus persista, afectando la efectividad de la respuesta antiviral."
+}, 
+{ 
+    "question": "¿Qué respuesta inmune se ve típicamente alterada en individuos con deficiencias en el gen IFNAR1?", 
+    "answer": "Respuesta a interferones de tipo I, crucial para el control de infecciones virales.", 
+    "explanation": "El <<gen IFNAR1>> codifica para un receptor esencial en la <<respuesta a interferones de tipo I>>. Deficiencias en IFNAR1 alteran la capacidad de las células para responder a IFN-α e IFN-β, comprometiendo la <<respuesta antiviral>> temprana. Esta deficiencia aumenta la susceptibilidad a infecciones virales, ya que los interferones de tipo I son cruciales para activar la <<respuesta inmune innata>> y limitar la replicación viral en etapas iniciales de la infección."
+},
+{ 
+    "question": "¿Qué tipo de respuesta inmune es predominante en infecciones por helmintos?", 
+    "answer": "Respuesta Th2.", 
+    "explanation": "La <<respuesta Th2>> es predominante en las infecciones por <<helmintos>> y otros parásitos grandes. Este tipo de respuesta se caracteriza por la producción de citoquinas como <<IL-4>>, <<IL-5>> e <<IL-13>>, que promueven la activación de <<eosinófilos>>, <<mastocitos>> y la producción de <<IgE>>. La respuesta Th2 es crucial para combatir estos parásitos, ya que facilita la expulsión de los helmintos a través de mecanismos inflamatorios y de aumento de la motilidad intestinal."
+}, 
+{ 
+    "question": "¿Qué citoquinas caracterizan la respuesta Th2 en infecciones por parásitos?", 
+    "answer": "IL-4, IL-5, IL-13.", 
+    "explanation": "Las citoquinas <<IL-4>>, <<IL-5>> e <<IL-13>> son características de la <<respuesta Th2>> y desempeñan un papel clave en la defensa contra parásitos como los helmintos. IL-4 promueve la <<producción de IgE>> y la diferenciación de linfocitos T hacia el subtipo Th2, IL-5 es fundamental para la <<activación y reclutamiento de eosinófilos>>, y IL-13 contribuye a la inflamación de las mucosas y a la producción de moco, dificultando el establecimiento del parásito en el hospedador."
+}, 
+{ 
+    "question": "¿Qué célula es esencial para la defensa contra parásitos grandes como helmintos?", 
+    "answer": "Eosinófilos.", 
+    "explanation": "Los <<eosinófilos>> son células clave en la defensa contra parásitos grandes como los <<helmintos>>. Estas células contienen <<gránulos>> llenos de proteínas tóxicas que pueden dañar la cutícula externa de los helmintos, facilitando su eliminación. Los eosinófilos son activados y reclutados al sitio de infección por citoquinas como <<IL-5>>, y su presencia es una característica distintiva de las respuestas Th2 asociadas a infecciones por parásitos multicelulares."
+}, 
+{ 
+    "question": "¿Cuál es el mecanismo de acción principal de los eosinófilos contra parásitos?", 
+    "answer": "Liberación de proteínas tóxicas como la proteína básica mayor (MBP) y peroxidasa eosinofílica.", 
+    "explanation": "El mecanismo de acción principal de los <<eosinófilos>> contra parásitos es la <<liberación de proteínas tóxicas>> contenidas en sus gránulos. Entre estas proteínas se encuentran la <<proteína básica mayor>> (MBP) y la <<peroxidasa eosinofílica>>, que son capaces de dañar las estructuras externas de los parásitos, facilitando su eliminación. Estas proteínas tóxicas permiten una respuesta efectiva contra parásitos grandes, que son difíciles de fagocitar por su tamaño."
+}, 
+{ 
+    "question": "¿Qué citoquina promueve la activación y reclutamiento de eosinófilos?", 
+    "answer": "IL-5.", 
+    "explanation": "<<IL-5>> es una citoquina fundamental en la <<activación y reclutamiento de eosinófilos>> durante las infecciones por parásitos. Producida principalmente por células Th2, IL-5 estimula la proliferación y activación de eosinófilos, permitiendo una respuesta robusta contra parásitos como los helmintos. La presencia de eosinófilos en el sitio de infección es clave para la liberación de proteínas tóxicas que dañan al parásito y facilitan su eliminación."
+}, 
+{ 
+    "question": "¿Qué inmunoglobulina está más implicada en la respuesta contra helmintos?", 
+    "answer": "IgE.", 
+    "explanation": "La <<IgE>> es la <<inmunoglobulina>> más implicada en la respuesta inmune contra helmintos y otros parásitos multicelulares. Esta inmunoglobulina se une a <<receptores FcεRI>> en <<mastocitos>> y <<basófilos>>, activándolos y provocando la liberación de <<histamina>> y otras moléculas inflamatorias que contribuyen a la expulsión del parásito. IgE también facilita la <<activación de eosinófilos>> al unirse a antígenos en la superficie del parásito, desencadenando una respuesta de desgranulación que daña al invasor."
+}, 
+{ 
+    "question": "¿Qué receptor en los mastocitos se une a IgE para mediar la respuesta frente a parásitos?", 
+    "answer": "FcεRI.", 
+    "explanation": "El receptor <<FcεRI>> en los <<mastocitos>> y <<basófilos>> se une específicamente a la <<IgE>> y desempeña un papel central en la <<respuesta inmune contra parásitos>>. Cuando el receptor FcεRI se une a IgE que está ligada a antígenos del parásito, induce la <<liberación de mediadores inflamatorios>> como histamina, que aumentan la permeabilidad vascular y promueven la expulsión del parásito del hospedador."
+}, 
+{ 
+    "question": "¿Cuál es el rol de IL-4 en la respuesta inmunitaria contra parásitos?", 
+    "answer": "Estimula la producción de IgE y la diferenciación de linfocitos Th2.", 
+    "explanation": "<<IL-4>> es una citoquina central en la <<respuesta Th2>> que estimula la <<producción de IgE>> por las células B y favorece la <<diferenciación de linfocitos T>> hacia el subtipo Th2. Esta respuesta es fundamental en infecciones por parásitos, ya que IgE facilita la activación de <<mastocitos>> y <<eosinófilos>> que liberan moléculas tóxicas y mediadores inflamatorios para expulsar al parásito del organismo."
+}, 
+{ 
+    "question": "¿Qué tipo de célula participa en la respuesta contra parásitos mediante la liberación de histamina?", 
+    "answer": "Mastocitos.", 
+    "explanation": "Los <<mastocitos>> son células inmunitarias que juegan un papel clave en la <<respuesta contra parásitos>> mediante la <<liberación de histamina>> y otros mediadores inflamatorios. La histamina aumenta la permeabilidad vascular y contribuye al reclutamiento de otras células inmunes al sitio de infección. Además, los mastocitos son activados al unirse a IgE específica de antígenos del parásito, facilitando una respuesta rápida y potente contra los invasores multicelulares."
+}, 
+{ 
+    "question": "¿Qué citoquinas inducen el aumento de moco y peristaltismo intestinal en infecciones por helmintos?", 
+    "answer": "IL-4 e IL-13.", 
+    "explanation": "Las citoquinas <<IL-4>> e <<IL-13>> son producidas durante la <<respuesta Th2>> y desempeñan un rol crucial en el <<aumento de moco>> y <<peristaltismo intestinal>> en infecciones por helmintos. Estas citoquinas inducen la secreción de moco en las células epiteliales intestinales y aumentan la motilidad intestinal, lo cual contribuye a <<expulsar los parásitos>> del tracto digestivo, limitando así su permanencia y proliferación en el hospedador."
+},
+{ 
+    "question": "¿Qué tipo de respuesta inmune es predominante en infecciones por protozoos intracelulares?", 
+    "answer": "Respuesta Th1.", 
+    "explanation": "La <<respuesta Th1>> es predominante en infecciones por <<protozoos intracelulares>> como Leishmania y Toxoplasma. Este tipo de respuesta se caracteriza por la producción de citoquinas como <<IFN-γ>> y <<TNF-α>>, que son esenciales para activar a los <<macrófagos>> y promover su capacidad para destruir patógenos intracelulares. La respuesta Th1 es clave para controlar infecciones donde los parásitos se encuentran dentro de las células, ya que refuerza los mecanismos de destrucción intracelular y previene la proliferación de los patógenos."
+}, 
+{ 
+    "question": "¿Qué citoquina es clave en la activación de macrófagos contra protozoos intracelulares como Leishmania?", 
+    "answer": "IFN-γ.", 
+    "explanation": "<<IFN-γ>> es una citoquina fundamental para la <<activación de macrófagos>> en la respuesta contra <<protozoos intracelulares>>. En infecciones como las causadas por Leishmania, IFN-γ es producida por <<células T CD4+ Th1>> y <<células NK>>, y aumenta la actividad microbicida de los macrófagos, promoviendo la producción de <<especies reactivas de oxígeno>> y <<óxido nítrico>>. Estos productos ayudan a destruir el parásito dentro de los macrófagos, evitando la diseminación de la infección."
+}, 
+{ 
+    "question": "¿Qué receptor de reconocimiento de patrones es importante para detectar parásitos de tipo protozoario en el sistema inmune innato?", 
+    "answer": "Receptor tipo Toll TLR2 y TLR4.", 
+    "explanation": "Los receptores <<TLR2>> y <<TLR4>> son importantes para la <<detección de protozoos>> por el <<sistema inmune innato>>. Estos receptores reconocen <<componentes de la superficie de los protozoos>>, como los lipofosfoglicanos en Leishmania y glicolípidos en otros parásitos. Al activarse, TLR2 y TLR4 desencadenan una <<cascada de señalización>> que resulta en la producción de citoquinas proinflamatorias, contribuyendo a la activación de macrófagos y otros mecanismos de defensa innata contra los parásitos."
+}, 
+{ 
+    "question": "¿Qué mecanismo de evasión emplea Trypanosoma brucei para evitar la respuesta inmune?", 
+    "answer": "Variación antigénica.", 
+    "explanation": "Trypanosoma brucei utiliza <<variación antigénica>> para evadir la <<respuesta inmune>> del huésped. Este parásito cambia periódicamente las proteínas de su superficie, conocidas como <<glicoproteínas de la cubierta variable>> (VSG), lo que dificulta que el sistema inmune lo reconozca y responda eficazmente. Esta estrategia de evasión permite que el parásito persista en el huésped al evitar ser destruido por anticuerpos específicos."
+}, 
+{ 
+    "question": "¿Qué tipo de linfocitos T son fundamentales en la inmunidad contra Plasmodium?", 
+    "answer": "Linfocitos T CD8+ en el hígado.", 
+    "explanation": "Los <<linfocitos T CD8+>> son fundamentales en la <<inmunidad contra Plasmodium>> durante la etapa hepática de su ciclo de vida. Estas células T citotóxicas reconocen y eliminan las células hepáticas infectadas por <<esporozoitos>> de Plasmodium, limitando la progresión de la infección antes de que el parásito alcance los glóbulos rojos. La respuesta de los linfocitos T CD8+ es crucial para controlar la malaria en sus fases iniciales y prevenir su diseminación en el huésped."
+}, 
+{ 
+    "question": "¿Qué función cumple la IL-10 en la respuesta inmune contra infecciones parasitarias crónicas?", 
+    "answer": "Suprime la respuesta inflamatoria excesiva y protege contra daño tisular.", 
+    "explanation": "<<IL-10>> es una <<citoquina antiinflamatoria>> que desempeña un rol importante en el control de la <<respuesta inmune>> en infecciones parasitarias crónicas. Al inhibir la producción de citoquinas proinflamatorias y limitar la actividad excesiva de macrófagos y linfocitos, IL-10 previene el daño tisular causado por una inflamación persistente. Esta regulación es esencial para mantener un equilibrio entre la respuesta contra el parásito y la protección de los tejidos del huésped."
+}, 
+{ 
+    "question": "¿Cuál es el papel de los neutrófilos en infecciones por helmintos?", 
+    "answer": "Liberan NETs para atrapar y dañar parásitos.", 
+    "explanation": "En infecciones por helmintos, los <<neutrófilos>> desempeñan un papel importante al liberar <<trampas extracelulares de neutrófilos>> (NETs), que son estructuras compuestas de ADN y proteínas antimicrobianas. Estas NETs actúan atrapando a los parásitos y dañando sus estructuras externas, facilitando su eliminación. Este mecanismo es particularmente útil contra parásitos grandes, que no pueden ser fagocitados debido a su tamaño."
+}, 
+{ 
+    "question": "¿Qué mecanismo utiliza Schistosoma para evitar la detección por el sistema inmune?", 
+    "answer": "Recubrimiento de proteínas del huésped en su superficie.", 
+    "explanation": "<<Schistosoma>> evade el <<sistema inmune>> recubriendo su superficie con <<proteínas del huésped>>. Este mecanismo permite que el parásito pase desapercibido para el sistema inmunitario, ya que la cubierta de proteínas del huésped evita el reconocimiento por anticuerpos y células inmunes. Esta estrategia de mimetismo inmunológico ayuda a Schistosoma a establecer infecciones crónicas en el huésped."
+}, 
+{ 
+    "question": "¿Qué función tiene el TGF-β en la inmunomodulación durante infecciones por parásitos?", 
+    "answer": "Induce una respuesta reguladora para limitar la inflamación.", 
+    "explanation": "<<TGF-β>> es una citoquina inmunomoduladora que juega un rol clave en la <<regulación de la respuesta inmune>> durante infecciones por parásitos. Esta citoquina induce una respuesta reguladora que limita la <<inflamación excesiva>> y protege contra el daño tisular asociado con la respuesta inflamatoria prolongada. TGF-β ayuda a mantener un equilibrio entre la defensa contra el parásito y la preservación de los tejidos del huésped."
+}, 
+{ 
+    "question": "¿Qué tipo de macrófagos se asocian con la respuesta Th2 en infecciones por helmintos y qué los activa?", 
+    "answer": "Macrófagos alternativos (M2), activados por IL-4 e IL-13.", 
+    "explanation": "Los <<macrófagos alternativos>> (M2) están asociados con la <<respuesta Th2>> en infecciones por helmintos y son activados por las citoquinas <<IL-4>> e <<IL-13>>. Estos macrófagos desempeñan funciones en la <<reparación tisular>> y el <<control de la inflamación>>, facilitando la expulsión del parásito y limitando el daño en los tejidos circundantes. La activación de los macrófagos M2 es una característica de la respuesta Th2, promoviendo un ambiente antiinflamatorio en infecciones crónicas."
+},
+{ 
+    "question": "¿Cuál es la característica principal de una reacción de hipersensibilidad tipo I?", 
+    "answer": "Respuesta inmediata mediada por IgE.", 
+    "explanation": "La característica principal de la <<hipersensibilidad tipo I>> es que es una <<respuesta inmediata>> mediada por la <<IgE>>. En este tipo de reacción, la exposición a un alérgeno provoca que las <<células B>> produzcan IgE específica, la cual se une a <<mastocitos>> y <<basófilos>> a través del receptor de alta afinidad <<FcεRI>>. Ante la exposición subsecuente al alérgeno, estos anticuerpos IgE activan los mastocitos y basófilos, provocando la liberación de mediadores inflamatorios como <<histamina>>, que generan una reacción rápida y a menudo intensa."
+}, 
+{ 
+    "question": "¿Qué células efectúan la liberación de histamina en la hipersensibilidad tipo I?", 
+    "answer": "Mastocitos y basófilos.", 
+    "explanation": "En la <<hipersensibilidad tipo I>>, los <<mastocitos>> y <<basófilos>> son las células que efectúan la liberación de <<histamina>> y otros mediadores inflamatorios al activarse por el alérgeno. Estos mediadores son responsables de los síntomas clínicos típicos, como <<vasodilatación>>, <<aumento de permeabilidad vascular>>, <<broncoespasmo>> y picazón. Los mastocitos y basófilos activados juegan un rol fundamental en reacciones alérgicas comunes, como el asma y la rinitis alérgica."
+}, 
+{ 
+    "question": "¿Qué receptor de alta afinidad en mastocitos se une a IgE durante una reacción de hipersensibilidad tipo I?", 
+    "answer": "FcεRI.", 
+    "explanation": "El receptor <<FcεRI>> es un receptor de alta afinidad presente en los <<mastocitos>> y <<basófilos>> que se une a la <<IgE>> durante una reacción de hipersensibilidad tipo I. Este receptor permite que los anticuerpos IgE se fijen de manera estable en la superficie de estas células, y cuando el alérgeno se une a la IgE, provoca la activación de los mastocitos y la liberación de mediadores inflamatorios, como la histamina, iniciando así una reacción alérgica inmediata."
+}, 
+{ 
+    "question": "¿Cuál es el rol de la histamina en una reacción de hipersensibilidad tipo I?", 
+    "answer": "Provoca vasodilatación, aumento de permeabilidad y broncoconstricción.", 
+    "explanation": "La <<histamina>> liberada durante una reacción de <<hipersensibilidad tipo I>> juega un rol central al provocar <<vasodilatación>>, <<aumento de permeabilidad vascular>> y <<broncoconstricción>>. Estos efectos conducen a los síntomas característicos de las reacciones alérgicas, como enrojecimiento, hinchazón, y dificultad respiratoria. La histamina también contribuye a la contracción del músculo liso en las vías respiratorias y el intestino, exacerbando los síntomas de anafilaxia en casos severos."
+}, 
+{ 
+    "question": "¿Qué citoquinas son producidas en la respuesta Th2 que promueven la hipersensibilidad tipo I?", 
+    "answer": "IL-4, IL-5, IL-13.", 
+    "explanation": "Las citoquinas <<IL-4>>, <<IL-5>> e <<IL-13>> son producidas en la <<respuesta Th2>> y juegan un rol clave en la <<hipersensibilidad tipo I>>. IL-4 e IL-13 promueven la <<producción de IgE>> por las células B, mientras que IL-5 es esencial para el <<reclutamiento y activación de eosinófilos>>, células involucradas en la inflamación alérgica. Estas citoquinas crean un ambiente propicio para el desarrollo de una respuesta alérgica, facilitando la activación de mastocitos y la amplificación de la reacción inflamatoria."
+}, 
+{ 
+    "question": "¿Cuál es la principal diferencia entre hipersensibilidad tipo I y tipo II?", 
+    "answer": "Tipo I es mediada por IgE y es inmediata; tipo II es mediada por IgG o IgM y es citotóxica.", 
+    "explanation": "La <<hipersensibilidad tipo I>> es mediada por <<IgE>> y se caracteriza por una <<respuesta inmediata>> que ocurre en minutos tras la exposición al alérgeno. En contraste, la <<hipersensibilidad tipo II>> es mediada por <<IgG o IgM>> y produce daño celular a través de <<citotoxicidad>>. En la tipo II, los anticuerpos IgG o IgM se unen a antígenos en la superficie de células del propio cuerpo, activando el <<complemento>> y conduciendo a la destrucción de esas células, como ocurre en enfermedades autoinmunes específicas."
+}, 
+{ 
+    "question": "¿Qué tipo de inmunoglobulina está implicada en la hipersensibilidad tipo II?", 
+    "answer": "IgG o IgM.", 
+    "explanation": "En la <<hipersensibilidad tipo II>>, la <<IgG>> y <<IgM>> son las inmunoglobulinas implicadas. Estas inmunoglobulinas se unen a antígenos específicos en la superficie de las células del huésped, activando el sistema de <<complemento>> y provocando la <<lisis celular>> o la <<fagocitosis>> de esas células. Este mecanismo es responsable de la destrucción celular en condiciones como la anemia hemolítica autoinmune y la trombocitopenia inmune."
+}, 
+{ 
+    "question": "¿Qué mecanismo principal de daño celular está involucrado en la hipersensibilidad tipo II?", 
+    "answer": "Activación del complemento y citotoxicidad mediada por anticuerpos.", 
+    "explanation": "El mecanismo principal de daño en la <<hipersensibilidad tipo II>> es la <<activación del complemento>> y la <<citotoxicidad mediada por anticuerpos>>. Los anticuerpos IgG o IgM se unen a antígenos en la superficie de células diana, desencadenando la activación del complemento, que resulta en lisis celular, o promoviendo la <<citotoxicidad celular dependiente de anticuerpos>> (ADCC) mediada por células como los neutrófilos y macrófagos. Este tipo de respuesta causa daño directo a las células del huésped."
+}, 
+{ 
+    "question": "¿Cuál es un ejemplo clásico de enfermedad mediada por hipersensibilidad tipo II?", 
+    "answer": "Anemia hemolítica autoinmune.", 
+    "explanation": "La <<anemia hemolítica autoinmune>> es un ejemplo clásico de enfermedad mediada por <<hipersensibilidad tipo II>>. En esta condición, el sistema inmunitario produce <<anticuerpos IgG o IgM>> contra antígenos en los glóbulos rojos, lo que provoca su destrucción a través de <<lisis mediada por complemento>> o <<fagocitosis>>. Esta destrucción de glóbulos rojos resulta en anemia, que puede ser severa y requerir intervención médica."
+}, 
+{ 
+    "question": "¿Qué receptor en neutrófilos y macrófagos reconoce anticuerpos en la hipersensibilidad tipo II?", 
+    "answer": "Receptor Fcγ.", 
+    "explanation": "El <<receptor Fcγ>> en <<neutrófilos>> y <<macrófagos>> reconoce anticuerpos IgG unidos a antígenos en la hipersensibilidad tipo II. Esta unión permite que las células efectoras lleven a cabo <<fagocitosis>> o <<citotoxicidad mediada por anticuerpos>> contra las células marcadas por los anticuerpos. Este mecanismo de acción es clave en el proceso de destrucción celular en varias enfermedades autoinmunes y otras reacciones de hipersensibilidad tipo II."
+},
+{ 
+    "question": "¿Qué tipo de inmunocomplejos están involucrados en la hipersensibilidad tipo III?", 
+    "answer": "Complejos antígeno-anticuerpo.", 
+    "explanation": "En la <<hipersensibilidad tipo III>>, los <<inmunocomplejos>> formados por la unión de <<antígenos y anticuerpos>> circulan en el torrente sanguíneo y se depositan en diferentes tejidos. Esta deposición desencadena una respuesta inflamatoria mediada por el <<complemento>> y la activación de <<neutrófilos>>, lo cual lleva a la lesión tisular. Este mecanismo es típico en enfermedades autoinmunes como el lupus eritematoso sistémico, donde los inmunocomplejos causan daño en múltiples órganos."
+}, 
+{ 
+    "question": "¿Qué órgano es comúnmente afectado en la hipersensibilidad tipo III debido a la deposición de inmunocomplejos?", 
+    "answer": "Riñón (glomerulonefritis).", 
+    "explanation": "El <<riñón>> es un órgano frecuentemente afectado en la <<hipersensibilidad tipo III>> debido a la deposición de <<inmunocomplejos>> en los glomérulos, lo que causa <<glomerulonefritis>>. La acumulación de estos complejos en el tejido renal activa el complemento y desencadena una respuesta inflamatoria que lleva al daño de los glomérulos, afectando la función de filtración del riñón. Este mecanismo es común en enfermedades autoinmunes, como el lupus eritematoso sistémico y la enfermedad del suero."
+}, 
+{ 
+    "question": "¿Cuál es un ejemplo clásico de enfermedad de hipersensibilidad tipo III?", 
+    "answer": "Lupus eritematoso sistémico.", 
+    "explanation": "El <<lupus eritematoso sistémico>> es un ejemplo clásico de <<hipersensibilidad tipo III>>, en el cual se forman <<inmunocomplejos>> de antígenos y anticuerpos que se depositan en varios órganos, incluyendo el riñón, piel y articulaciones. Estos inmunocomplejos activan el sistema de complemento, causando una inflamación prolongada y daño tisular en múltiples sistemas del cuerpo, lo cual es característico de esta enfermedad autoinmune multisistémica."
+}, 
+{ 
+    "question": "¿Qué citoquina es fundamental en la atracción de neutrófilos en la hipersensibilidad tipo III?", 
+    "answer": "IL-8.", 
+    "explanation": "<<IL-8>> es una citoquina clave en la <<atracción de neutrófilos>> hacia el sitio donde se han depositado <<inmunocomplejos>> en la hipersensibilidad tipo III. La llegada de neutrófilos amplifica la respuesta inflamatoria, ya que estas células liberan enzimas líticas y especies reactivas de oxígeno que dañan el tejido circundante. Esta acumulación de neutrófilos es un paso fundamental en la generación del daño en enfermedades de hipersensibilidad tipo III."
+}, 
+{ 
+    "question": "¿Cuál es el mecanismo de lesión tisular en la hipersensibilidad tipo III?", 
+    "answer": "Inflamación mediada por la activación del complemento y la atracción de neutrófilos.", 
+    "explanation": "En la <<hipersensibilidad tipo III>>, el mecanismo de lesión tisular está mediado por la <<activación del complemento>> y la <<atracción de neutrófilos>> hacia el área donde se depositan los inmunocomplejos. La activación del complemento genera factores quimiotácticos y mediadores inflamatorios que atraen a los neutrófilos. Estos liberan enzimas y radicales libres que dañan el tejido, produciendo inflamación crónica y daño estructural en el órgano afectado."
+}, 
+{ 
+    "question": "¿Cuál es la característica principal de la hipersensibilidad tipo IV?", 
+    "answer": "Reacción retardada mediada por células T.", 
+    "explanation": "La <<hipersensibilidad tipo IV>> se caracteriza por ser una <<reacción retardada>> mediada principalmente por <<células T>> en lugar de anticuerpos. Esta respuesta tarda entre 24 y 72 horas en desarrollarse y es mediada por células T que liberan citoquinas para activar <<macrófagos>> y otras células inmunes, lo que produce inflamación en el sitio de exposición al antígeno. Un ejemplo clásico de este tipo de reacción es la dermatitis por contacto."
+}, 
+{ 
+    "question": "¿Qué célula T es la principal en la hipersensibilidad tipo IV?", 
+    "answer": "Células T CD4+.", 
+    "explanation": "Las <<células T CD4+>> son las principales células inmunes en la <<hipersensibilidad tipo IV>>, también conocida como hipersensibilidad retardada. Estas células reconocen el antígeno y liberan <<citoquinas>> como IFN-γ, que activan a los <<macrófagos>> y promueven la inflamación localizada. Esta respuesta es crucial en la defensa contra patógenos intracelulares y en reacciones de hipersensibilidad, como la respuesta a la tuberculina (PPD)."
+}, 
+{ 
+    "question": "¿Qué citoquina liberada por las células T CD4+ es clave en la hipersensibilidad tipo IV?", 
+    "answer": "IFN-γ.", 
+    "explanation": "<<IFN-γ>> es una citoquina clave en la <<hipersensibilidad tipo IV>> producida por <<células T CD4+>>. IFN-γ activa a los <<macrófagos>> y aumenta su capacidad para destruir patógenos intracelulares. Además, IFN-γ amplifica la inflamación, ayudando a contener y eliminar el antígeno, pero también puede contribuir al daño tisular cuando la respuesta es prolongada o excesiva, como en la dermatitis por contacto."
+}, 
+{ 
+    "question": "¿Cuál es un ejemplo clásico de hipersensibilidad tipo IV?", 
+    "answer": "Dermatitis por contacto.", 
+    "explanation": "La <<dermatitis por contacto>> es un ejemplo clásico de <<hipersensibilidad tipo IV>>. En esta reacción, las <<células T>> reconocen un antígeno que ha entrado en contacto con la piel, como en el caso de hiedra venenosa o ciertos metales, y liberan citoquinas que activan a los <<macrófagos>> y causan inflamación localizada. Esto produce los síntomas característicos de enrojecimiento, hinchazón y picazón en el área de contacto."
+}, 
+{ 
+    "question": "¿Cuál es el mecanismo de acción del IFN-γ en la hipersensibilidad tipo IV?", 
+    "answer": "Activa macrófagos, promoviendo la inflamación.", 
+    "explanation": "En la <<hipersensibilidad tipo IV>>, el <<IFN-γ>> liberado por las <<células T>> es crucial para la <<activación de macrófagos>>. Al activarse, los macrófagos aumentan su capacidad de fagocitosis y producción de citoquinas proinflamatorias, contribuyendo a la inflamación localizada en el sitio del antígeno. Este mecanismo es efectivo para eliminar patógenos intracelulares, pero puede provocar daño tisular en el sitio de la reacción si la inflamación es excesiva."
+}, 
+{ 
+    "question": "¿Qué tipo de prueba diagnóstica se usa para evaluar la hipersensibilidad tipo IV?", 
+    "answer": "Prueba de la tuberculina (PPD).", 
+    "explanation": "La <<prueba de la tuberculina>> (PPD) es una herramienta diagnóstica utilizada para evaluar la <<hipersensibilidad tipo IV>>. En esta prueba, un extracto de proteína de Mycobacterium tuberculosis se inyecta en la piel, y la reacción inflamatoria resultante se evalúa entre 48 y 72 horas después. La aparición de un endurecimiento e inflamación en el sitio de la inyección indica la presencia de células T sensibilizadas, que es característica de una reacción de hipersensibilidad retardada."
+}, 
+{ 
+    "question": "¿Cuál es el rol de los linfocitos T CD8+ en la hipersensibilidad tipo IV?", 
+    "answer": "Destrucción de células infectadas o dañadas en el sitio de inflamación.", 
+    "explanation": "En la <<hipersensibilidad tipo IV>>, los <<linfocitos T CD8+>> participan activamente en la <<destrucción de células>> que han sido infectadas o están dañadas en el sitio de inflamación. Estas células T citotóxicas liberan granzimas y perforinas que inducen la apoptosis en las células diana, contribuyendo al control de la infección y eliminando células que contienen patógenos intracelulares."
+}, 
+{ 
+    "question": "¿Qué citoquina secretada por macrófagos amplifica la inflamación en la hipersensibilidad tipo IV?", 
+    "answer": "TNF-α.", 
+    "explanation": "<<TNF-α>> es una citoquina proinflamatoria producida por <<macrófagos>> que amplifica la inflamación en la <<hipersensibilidad tipo IV>>. Esta citoquina promueve el reclutamiento de otras células inmunes al sitio de inflamación y aumenta la permeabilidad vascular, contribuyendo a una respuesta inflamatoria robusta. Sin embargo, TNF-α también puede causar daño tisular si la inflamación se vuelve crónica o excesiva."
+}, 
+{ 
+    "question": "¿Qué célula principal regula la respuesta de hipersensibilidad en la hipersensibilidad tipo I?", 
+    "answer": "Células Th2.", 
+    "explanation": "Las <<células Th2>> regulan la <<respuesta de hipersensibilidad tipo I>> al promover la producción de <<IgE>> y la activación de <<mastocitos>> y <<basófilos>>. Las citoquinas IL-4, IL-5 e IL-13 producidas por las células Th2 son clave para facilitar la respuesta alérgica, ya que estimulan la producción de anticuerpos IgE y el reclutamiento de eosinófilos, generando una respuesta rápida e intensa al alérgeno."
+}, 
+{ 
+    "question": "¿Qué órgano está afectado típicamente en la enfermedad del suero, una forma de hipersensibilidad tipo III?", 
+    "answer": "Riñón, piel y articulaciones.", 
+    "explanation": "En la <<enfermedad del suero>>, una forma de <<hipersensibilidad tipo III>>, los <<inmunocomplejos>> se depositan en el <<riñón>>, <<piel>> y <<articulaciones>>. Estos depósitos activan el complemento y provocan inflamación en estos tejidos, lo que resulta en síntomas como fiebre, erupción cutánea, dolor articular y daño renal. Esta enfermedad puede desarrollarse tras la administración de proteínas extrañas, como ciertos medicamentos o antitoxinas."
+},
+{ 
+    "question": "¿Cuál es el defecto molecular en la enfermedad granulomatosa crónica?", 
+    "answer": "Deficiencia en la enzima NADPH oxidasa.", 
+    "explanation": "La <<enfermedad granulomatosa crónica>> se debe a una deficiencia en la <<enzima NADPH oxidasa>>, que es fundamental para la producción de <<especies reactivas de oxígeno>> en los <<fagocitos>>. Esta enzima permite que los neutrófilos y macrófagos generen peróxido de hidrógeno y otros radicales libres, esenciales para destruir microorganismos fagocitados. Sin esta actividad oxidativa, los pacientes tienen dificultad para eliminar ciertos patógenos, especialmente aquellos que son <<catalasa positivos>>, lo que lleva a infecciones crónicas y formación de granulomas."
+}, 
+{ 
+    "question": "¿Qué patrón de herencia tiene la enfermedad granulomatosa crónica?", 
+    "answer": "Ligada al cromosoma X (en la mayoría de los casos).", 
+    "explanation": "La <<enfermedad granulomatosa crónica>> generalmente sigue un <<patrón de herencia ligada al cromosoma X>> en la mayoría de los casos. Esto significa que la mutación responsable se encuentra en el cromosoma X, lo que afecta predominantemente a los varones. Existen también formas autosómicas recesivas de la enfermedad, pero son menos comunes. La herencia ligada al X implica que los hombres tienen más probabilidad de presentar síntomas, mientras que las mujeres pueden ser portadoras sin manifestar la enfermedad."
+}, 
+{ 
+    "question": "¿Qué microorganismos son más comunes en infecciones en pacientes con enfermedad granulomatosa crónica?", 
+    "answer": "Catalasa positivos (Ej. Staphylococcus aureus, Aspergillus).", 
+    "explanation": "Los pacientes con <<enfermedad granulomatosa crónica>> son especialmente susceptibles a infecciones causadas por microorganismos <<catalasa positivos>>, como <<Staphylococcus aureus>> y <<Aspergillus>>. La catalasa en estos patógenos descompone el peróxido de hidrógeno, impidiendo que los fagocitos lo usen como un agente antimicrobiano, lo cual es crucial para pacientes con deficiencia en NADPH oxidasa. Como resultado, estos pacientes tienen un riesgo elevado de infecciones bacterianas y fúngicas recurrentes."
+}, 
+{ 
+    "question": "¿Cuál es el defecto principal en el síndrome de Job (Hiper-IgE)?", 
+    "answer": "Mutaciones en el gen STAT3.", 
+    "explanation": "El <<síndrome de Job>> o <<síndrome de Hiper-IgE>> es causado por <<mutaciones en el gen STAT3>>. STAT3 es esencial para la señalización en el desarrollo de linfocitos T y en la respuesta inflamatoria. Las mutaciones en STAT3 afectan la función de células T reguladoras y la producción de citoquinas, llevando a un aumento en los niveles de <<IgE>> y una susceptibilidad a infecciones recurrentes, así como alteraciones esqueléticas y dentales características del síndrome."
+}, 
+{ 
+    "question": "¿Qué inmunoglobulina está elevada en el síndrome de Job?", 
+    "answer": "IgE.", 
+    "explanation": "En el <<síndrome de Job>> o <<Hiper-IgE>>, los pacientes presentan niveles extremadamente elevados de <<IgE>>. Esta inmunoglobulina es responsable de la respuesta alérgica y está anormalmente alta en estos pacientes debido a una disfunción en la regulación de la respuesta inmune mediada por el gen STAT3. Este aumento de IgE se asocia con infecciones recurrentes, dermatitis y otros síntomas típicos de la condición."
+}, 
+{ 
+    "question": "¿Qué defecto inmunitario caracteriza al síndrome de DiGeorge?", 
+    "answer": "Aplasia o hipoplasia del timo.", 
+    "explanation": "El <<síndrome de DiGeorge>> se caracteriza por <<aplasia o hipoplasia del timo>>, lo que provoca una deficiencia en <<linfocitos T>> debido a la falta de maduración de estas células. Este defecto inmunitario lleva a una inmunodeficiencia celular que hace a los pacientes susceptibles a infecciones. Además, el síndrome de DiGeorge incluye otros síntomas, como malformaciones cardíacas y anomalías faciales, debido a su origen en una deleción cromosómica específica."
+}, 
+{ 
+    "question": "¿Qué anomalía genética se asocia con el síndrome de DiGeorge?", 
+    "answer": "Deleción 22q11.2.", 
+    "explanation": "El <<síndrome de DiGeorge>> está asociado con una <<deleción en el cromosoma 22q11.2>>. Esta anomalía genética afecta el desarrollo de los arcos branquiales en el embrión, lo que resulta en la <<hipoplasia o aplasia del timo>> y otras malformaciones, como defectos cardíacos y faciales. La falta de un timo funcional causa una deficiencia en linfocitos T, afectando la inmunidad y aumentando la susceptibilidad a infecciones."
+}, 
+{ 
+    "question": "¿Cuál es el defecto en la inmunodeficiencia combinada severa (SCID) ligada al cromosoma X?", 
+    "answer": "Mutación en el gen IL2RG (cadena γ común).", 
+    "explanation": "La <<inmunodeficiencia combinada severa>> (SCID) ligada al X se debe a una <<mutación en el gen IL2RG>>, que codifica para la <<cadena γ común>> utilizada en varios receptores de citoquinas. Esta mutación afecta la señalización en linfocitos T y B, lo que lleva a una grave inmunodeficiencia combinada. Los pacientes con esta forma de SCID carecen de una respuesta inmune funcional y son susceptibles a infecciones severas desde una edad temprana."
+}, 
+{ 
+    "question": "¿Qué tipo de células están ausentes o disminuidas en SCID?", 
+    "answer": "Linfocitos T y B funcionales.", 
+    "explanation": "En la <<inmunodeficiencia combinada severa>> (SCID), los <<linfocitos T y B>> están ausentes o son no funcionales debido a defectos en la señalización inmunológica. Esta deficiencia severa en células inmunes hace que los pacientes sean extremadamente vulnerables a infecciones. Sin un trasplante de médula ósea o intervención temprana, la vida de estos pacientes está en riesgo debido a su incapacidad para montar una respuesta inmune adecuada."
+}, 
+{ 
+    "question": "¿Cuál es el defecto molecular en el síndrome de Wiskott-Aldrich?", 
+    "answer": "Mutación en el gen WAS.", 
+    "explanation": "El <<síndrome de Wiskott-Aldrich>> se debe a una <<mutación en el gen WAS>>, que codifica una proteína esencial para la organización del citoesqueleto en células inmunes. Este defecto afecta la capacidad de los <<linfocitos T>> y <<plaquetas>> para funcionar adecuadamente, lo que lleva a síntomas como <<trombocitopenia>>, infecciones recurrentes y eczema. La mutación en el gen WAS afecta especialmente la función de las células inmunitarias y plaquetas, generando una respuesta inmunitaria deficiente."
+}, 
+{ 
+    "question": "¿Qué manifestación clínica es característica del síndrome de Wiskott-Aldrich?", 
+    "answer": "Trombocitopenia, eczema e infecciones recurrentes.", 
+    "explanation": "El <<síndrome de Wiskott-Aldrich>> presenta una tríada clínica característica: <<trombocitopenia>>, <<eczema>> e <<infecciones recurrentes>>. La trombocitopenia provoca un riesgo aumentado de sangrado, mientras que el eczema y las infecciones recurrentes reflejan una disfunción en el sistema inmunitario. Esta inmunodeficiencia se debe a mutaciones en el gen WAS, que afectan la estructura y función de linfocitos y plaquetas."
+}, 
+{ 
+    "question": "¿Qué inmunodeficiencia primaria es causada por una deficiencia en C1 inhibidor?", 
+    "answer": "Angioedema hereditario.", 
+    "explanation": "El <<angioedema hereditario>> es una inmunodeficiencia primaria causada por la <<deficiencia en C1 inhibidor>>, una proteína que regula el sistema del complemento. La falta de esta inhibición permite la activación excesiva del complemento, llevando a la formación de edemas dolorosos en tejidos, especialmente en la piel y el tracto gastrointestinal. Los ataques de angioedema pueden ser espontáneos o inducidos por trauma o estrés."
+},
+{ 
+    "question": "¿Qué tipo de herencia tiene el angioedema hereditario?", 
+    "answer": "Autosómica dominante.", 
+    "explanation": "El <<angioedema hereditario>> sigue un <<patrón de herencia autosómica dominante>>, lo que significa que solo se necesita una copia del gen mutado para que una persona desarrolle la enfermedad. Esto implica que un progenitor afectado tiene una probabilidad del 50% de transmitir la mutación a su descendencia. Este tipo de herencia es característico de enfermedades en las que el defecto en el <<C1 inhibidor>> lleva a episodios de inflamación no controlada en tejidos como piel y mucosas."
+}, 
+{ 
+    "question": "¿Qué defecto molecular subyace en la deficiencia de adhesión leucocitaria (LAD)?", 
+    "answer": "Mutaciones en el gen ITGB2, que codifica para CD18.", 
+    "explanation": "La <<deficiencia de adhesión leucocitaria>> (LAD) se debe a mutaciones en el gen <<ITGB2>>, que codifica para la proteína <<CD18>>. CD18 es una subunidad esencial en integrinas, que permiten que los <<leucocitos>> se adhieran y migren hacia los sitios de infección. Sin CD18 funcional, los leucocitos no pueden adherirse a las paredes vasculares, lo que resulta en una respuesta inmune ineficaz, caracterizada por infecciones recurrentes y dificultad para formar pus."
+}, 
+{ 
+    "question": "¿Cuál es el defecto inmunológico en el síndrome de hiper-IgM ligado al cromosoma X?", 
+    "answer": "Mutación en el gen CD40L.", 
+    "explanation": "El <<síndrome de hiper-IgM>> ligado al X se debe a una <<mutación en el gen CD40L>>, que impide que los linfocitos T interactúen adecuadamente con las células B para inducir el <<cambio de clase de inmunoglobulina>>. Como resultado, las células B no pueden producir otros tipos de inmunoglobulinas (como IgG o IgA) y solo secretan <<IgM>>, lo cual predispone a los pacientes a infecciones bacterianas y oportunistas."
+}, 
+{ 
+    "question": "¿Qué inmunoglobulina está elevada en el síndrome de hiper-IgM?", 
+    "answer": "IgM.", 
+    "explanation": "En el <<síndrome de hiper-IgM>>, los pacientes presentan niveles elevados de <<IgM>> debido a un defecto en el <<cambio de clase de inmunoglobulina>>. Este cambio de clase normalmente permite que las células B produzcan otras inmunoglobulinas, como IgG e IgA, esenciales para la defensa inmunológica. La falta de IgG e IgA en estos pacientes aumenta su susceptibilidad a infecciones recurrentes."
+}, 
+{ 
+    "question": "¿Cuál es el defecto en la deficiencia de ADA en SCID?", 
+    "answer": "Deficiencia de adenosina desaminasa (ADA).", 
+    "explanation": "La <<deficiencia de adenosina desaminasa>> (ADA) es una causa de <<inmunodeficiencia combinada severa>> (SCID). ADA es una enzima que ayuda a descomponer la adenosina en las células; su deficiencia causa una acumulación tóxica de metabolitos que afectan especialmente a los <<linfocitos>>, llevando a una deficiencia severa en células T y B. Esta condición hace a los pacientes extremadamente vulnerables a infecciones desde una edad temprana."
+}, 
+{ 
+    "question": "¿Qué tipo de infecciones son comunes en pacientes con deficiencia de ADA?", 
+    "answer": "Infecciones graves y recurrentes por virus, bacterias y hongos.", 
+    "explanation": "Los pacientes con <<deficiencia de ADA>> experimentan <<infecciones graves y recurrentes>> por una variedad de patógenos, incluyendo virus, bacterias y hongos. La acumulación de metabolitos tóxicos en estos pacientes afecta la función de los <<linfocitos T y B>>, privándolos de una respuesta inmunitaria efectiva y aumentando su susceptibilidad a infecciones oportunistas y severas."
+}, 
+{ 
+    "question": "¿Qué receptor es defectuoso en pacientes con inmunodeficiencia con susceptibilidad a micobacterias?", 
+    "answer": "Receptor de interferón gamma (IFN-γR).", 
+    "explanation": "La <<inmunodeficiencia con susceptibilidad a micobacterias>> está causada por defectos en el <<receptor de interferón gamma>> (IFN-γR), que es fundamental para la activación de <<macrófagos>> en la respuesta a infecciones micobacterianas. Sin un receptor funcional de IFN-γ, los macrófagos no se activan adecuadamente, lo cual permite que patógenos intracelulares como las micobacterias sobrevivan y proliferen dentro del huésped."
+}, 
+{ 
+    "question": "¿Qué tipo de inmunodeficiencia está relacionada con defectos en la vía clásica del complemento?", 
+    "answer": "Susceptibilidad a infecciones por bacterias encapsuladas (Ej. Neisseria).", 
+    "explanation": "Defectos en la <<vía clásica del complemento>> predisponen a los pacientes a infecciones por <<bacterias encapsuladas>>, como <<Neisseria>>. La vía clásica del complemento es crucial para la opsonización y lisis de bacterias, especialmente en infecciones sistémicas. Los defectos en proteínas como C1, C2 o C4 pueden llevar a una disminución en la capacidad del sistema inmune para combatir eficazmente estas bacterias, aumentando el riesgo de infecciones graves."
+}, 
+{ 
+    "question": "¿Cuál es el defecto genético en la ataxia-telangiectasia?", 
+    "answer": "Mutación en el gen ATM.", 
+    "explanation": "La <<ataxia-telangiectasia>> es causada por una <<mutación en el gen ATM>>, que es responsable de la reparación del ADN y el control del ciclo celular. Esta mutación resulta en una serie de manifestaciones clínicas, incluyendo <<ataxia>>, <<telangiectasias>> e <<inmunodeficiencia>>. La deficiencia en la función del gen ATM afecta la respuesta inmune, predisponiendo a los pacientes a infecciones recurrentes y al desarrollo de ciertos tipos de cáncer."
+}, 
+{ 
+    "question": "¿Qué manifestaciones clínicas son características de la ataxia-telangiectasia?", 
+    "answer": "Ataxia, telangiectasias e inmunodeficiencia.", 
+    "explanation": "La <<ataxia-telangiectasia>> presenta una combinación de <<ataxia>> (problemas de coordinación motora), <<telangiectasias>> (dilatación de pequeños vasos sanguíneos visibles en la piel y los ojos) e <<inmunodeficiencia>>. Esta inmunodeficiencia predispone a los pacientes a infecciones recurrentes, y el defecto en la reparación del ADN también aumenta el riesgo de desarrollar cáncer. Estas manifestaciones se deben a mutaciones en el gen ATM, esencial para la estabilidad del ADN."
+}, 
+{ 
+    "question": "¿Qué inmunodeficiencia primaria está asociada con mutaciones en el gen NEMO?", 
+    "answer": "Incontinencia pigmenti y susceptibilidad a infecciones bacterianas.", 
+    "explanation": "Las mutaciones en el <<gen NEMO>> están asociadas con <<incontinencia pigmenti>> y <<susceptibilidad a infecciones bacterianas>>. NEMO es crucial para la activación de la vía NF-kB, que es necesaria para la respuesta inmune contra bacterias y otros patógenos. La alteración en esta vía lleva a una inmunodeficiencia caracterizada por infecciones recurrentes y un trastorno dermatológico caracterizado por manchas cutáneas."
+}, 
+{ 
+    "question": "¿Qué mutación es común en el síndrome de Bruton o agammaglobulinemia ligada al X?", 
+    "answer": "Mutación en el gen BTK.", 
+    "explanation": "El <<síndrome de Bruton>> o <<agammaglobulinemia ligada al X>> es causado por mutaciones en el <<gen BTK>>, que es esencial para la maduración de las células B. Sin BTK funcional, las células B no completan su desarrollo, lo que resulta en la ausencia de <<inmunoglobulinas>> en el suero. Esto predispone a los pacientes a infecciones bacterianas recurrentes, ya que carecen de anticuerpos efectivos."
+}, 
+{ 
+    "question": "¿Qué inmunoglobulinas están ausentes en el síndrome de Bruton?", 
+    "answer": "Todas las clases de inmunoglobulinas (IgG, IgA, IgM).", 
+    "explanation": "En el <<síndrome de Bruton>>, los pacientes presentan una deficiencia completa de <<inmunoglobulinas>> (IgG, IgA, IgM), ya que la mutación en el gen BTK impide el desarrollo de células B maduras. La ausencia de anticuerpos hace que estos pacientes sean altamente susceptibles a infecciones bacterianas, especialmente en las vías respiratorias y gastrointestinales, debido a la falta de defensa humoral."
+},
+{ 
+    "question": "¿Qué tipo de virus es el VIH?", 
+    "answer": "Retrovirus.", 
+    "explanation": "El <<VIH>> (Virus de Inmunodeficiencia Humana) es un <<retrovirus>> de la familia Retroviridae. Este tipo de virus tiene la capacidad de transcribir su <<ARN en ADN>> mediante la enzima <<transcriptasa inversa>>. Esta característica le permite integrar su material genético en el <<genoma de la célula huésped>>, convirtiéndose en parte permanente de su ADN y permitiendo una infección persistente que contribuye a la progresión hacia el SIDA si no se trata."
+}, 
+{ 
+    "question": "¿Qué enzima permite al VIH integrar su ADN en el genoma de la célula huésped?", 
+    "answer": "Transcriptasa inversa.", 
+    "explanation": "La <<transcriptasa inversa>> es una enzima viral que permite al <<VIH>> convertir su <<ARN en ADN>> dentro de la célula huésped. Este ADN viral es posteriormente integrado en el genoma de la célula por la enzima integrasa. Esta integración permite que el VIH utilice la maquinaria celular para replicarse, estableciendo una infección crónica que es difícil de erradicar, ya que el ADN viral permanece en el genoma de la célula huésped."
+}, 
+{ 
+    "question": "¿Qué célula inmunitaria es la principal diana del VIH?", 
+    "answer": "Linfocito T CD4+.", 
+    "explanation": "El <<VIH>> ataca principalmente a los <<linfocitos T CD4+>>, que son células clave en la coordinación de la <<respuesta inmune>>. Al destruir estas células, el VIH compromete la capacidad del sistema inmunológico para combatir infecciones y otras enfermedades. La disminución progresiva de linfocitos T CD4+ es un marcador importante de la progresión de la infección por VIH hacia el SIDA."
+}, 
+{ 
+    "question": "¿Qué proteína del VIH se une al receptor CD4 en las células huésped?", 
+    "answer": "Gp120.", 
+    "explanation": "La proteína <<gp120>> del <<VIH>> es responsable de unirse al <<receptor CD4>> en la superficie de las células huésped, específicamente en los linfocitos T CD4+. Esta unión inicial es fundamental para el proceso de entrada del virus a la célula. Una vez que gp120 se une al receptor CD4, interactúa con co-receptores como <<CCR5>> o <<CXCR4>>, facilitando la fusión del virus con la membrana celular y permitiendo su entrada."
+}, 
+{ 
+    "question": "¿Cuál es el principal co-receptor que el VIH utiliza para entrar en las células T CD4+?", 
+    "answer": "CCR5 o CXCR4.", 
+    "explanation": "El <<VIH>> utiliza principalmente los co-receptores <<CCR5>> y <<CXCR4>> para entrar en las <<células T CD4+>>. El tipo de co-receptor utilizado depende de la etapa de la infección: en las primeras fases, el VIH prefiere CCR5 (infección por macrófagos), mientras que en etapas avanzadas puede cambiar a CXCR4 (infección de células T). La presencia de estos co-receptores es crucial para la entrada del virus en las células CD4+, y los bloqueadores de CCR5 son utilizados como terapia en algunos casos para inhibir esta entrada."
+}, 
+{ 
+    "question": "¿Qué tipo de receptor de quimiocina permite que el VIH infecte a los macrófagos?", 
+    "answer": "CCR5.", 
+    "explanation": "El <<receptor de quimiocina CCR5>> permite que el <<VIH>> infecte a <<macrófagos>> y células dendríticas, que expresan altos niveles de este co-receptor en sus membranas. Los macrófagos actúan como reservorios del virus en el cuerpo y ayudan a diseminar la infección en varias etapas. Las personas que carecen de CCR5, debido a mutaciones genéticas, son naturalmente resistentes a la infección por VIH que usa este co-receptor."
+}, 
+{ 
+    "question": "¿Qué gen del VIH codifica para la proteína de la envoltura gp41?", 
+    "answer": "Gen env.", 
+    "explanation": "El <<gen env>> del <<VIH>> codifica las proteínas de la <<envoltura viral>>, incluyendo <<gp120>> y <<gp41>>. La proteína gp41 es responsable de la fusión del virus con la membrana de la célula huésped, permitiendo que el contenido viral ingrese a la célula. La combinación de gp120 y gp41 facilita el proceso de entrada del virus al interactuar con el receptor CD4 y los co-receptores, siendo esencial para la infectividad del VIH."
+}, 
+{ 
+    "question": "¿Qué marcador se utiliza para monitorear la progresión de la infección por VIH a SIDA?", 
+    "answer": "Conteo de células CD4+.", 
+    "explanation": "El <<conteo de células CD4+>> es un marcador clave para monitorear la <<progresión de la infección por VIH hacia el SIDA>>. A medida que el virus destruye los linfocitos T CD4+, el sistema inmune se debilita, lo que aumenta el riesgo de infecciones oportunistas y enfermedades definitorias de SIDA. Un conteo de CD4+ menor a 200 células/mm³ es un criterio diagnóstico para la fase de SIDA."
+}, 
+{ 
+    "question": "¿Qué enzima es responsable de la formación de ADN de doble cadena a partir del ARN del VIH?", 
+    "answer": "Transcriptasa inversa.", 
+    "explanation": "La <<transcriptasa inversa>> es una enzima crucial en el ciclo de vida del <<VIH>>, ya que convierte el <<ARN viral en ADN de doble cadena>> una vez que el virus ingresa en la célula huésped. Este ADN viral es luego integrado en el genoma de la célula huésped, permitiendo que el virus utilice la maquinaria celular para replicarse y permanecer en el organismo de forma crónica."
+}, 
+{ 
+    "question": "¿Cuál es la carga viral de VIH típica en una persona con infección aguda?", 
+    "answer": "Alta carga viral (>100,000 copias/mL).", 
+    "explanation": "Durante la <<infección aguda por VIH>>, la carga viral en sangre suele ser <<muy alta>>, a menudo superando las 100,000 copias/mL. Esta fase inicial es altamente infecciosa debido a la rápida replicación del virus antes de que el sistema inmune pueda montar una respuesta eficaz. La alta carga viral durante esta fase puede provocar síntomas similares a los de la gripe y facilita la transmisión del virus a otras personas."
+}, 
+{ 
+    "question": "¿Qué prueba serológica detecta el antígeno p24 del VIH?", 
+    "answer": "Prueba de ELISA de cuarta generación.", 
+    "explanation": "La <<prueba de ELISA de cuarta generación>> es capaz de detectar tanto <<anticuerpos contra el VIH>> como el <<antígeno p24>>. La presencia de p24 es un indicador temprano de infección aguda, ya que este antígeno se encuentra en altos niveles antes de que el cuerpo produzca suficientes anticuerpos para ser detectados. La combinación de detección de anticuerpos y antígeno p24 permite un diagnóstico más temprano y preciso de la infección por VIH."
+}, 
+{ 
+    "question": "¿En qué fase de la infección por VIH es más común la seroconversión?", 
+    "answer": "Fase aguda (2-4 semanas después de la infección).", 
+    "explanation": "La <<seroconversión>> en la infección por VIH ocurre típicamente en la <<fase aguda>>, entre 2 y 4 semanas después de la exposición al virus. Durante este período, el cuerpo comienza a producir <<anticuerpos detectables>> contra el VIH, lo que marca la transición de la fase de infección aguda a la fase crónica. Los síntomas de la seroconversión suelen incluir fiebre, fatiga y otros síntomas similares a los de la gripe."
+},
+{ 
+    "question": "¿Qué terapia es estándar para el manejo del VIH?", 
+    "answer": "Terapia antirretroviral de gran actividad (TARGA o ART).", 
+    "explanation": "La <<terapia antirretroviral de gran actividad>> (TARGA o ART, por sus siglas en inglés) es el tratamiento estándar para el <<manejo del VIH>>. Esta terapia combina varios medicamentos antirretrovirales que actúan en diferentes etapas del ciclo de vida del virus, lo cual disminuye la replicación del VIH y reduce la probabilidad de que el virus desarrolle resistencia. La adherencia continua a ART permite a los pacientes mantener una <<carga viral indetectable>>, lo que mejora la calidad de vida y reduce el riesgo de transmisión."
+}, 
+{ 
+    "question": "¿Cuál es el principal objetivo de la terapia antirretroviral?", 
+    "answer": "Suprimir la carga viral a niveles indetectables.", 
+    "explanation": "El principal objetivo de la <<terapia antirretroviral>> (ART) es <<suprimir la carga viral>> del VIH a niveles indetectables. Al reducir la cantidad de VIH en la sangre, se preserva la función inmunológica, se reduce el riesgo de progresión a SIDA y se minimiza la transmisión del virus a otras personas. Mantener una carga viral indetectable también disminuye la aparición de enfermedades oportunistas y mejora la esperanza de vida de los pacientes con VIH."
+}, 
+{ 
+    "question": "¿Cuál es la proteína estructural del VIH codificada por el gen gag?", 
+    "answer": "p24 (capside viral).", 
+    "explanation": "El <<gen gag>> del <<VIH>> codifica varias proteínas estructurales, entre ellas la proteína <<p24>>, que forma la <<cápside viral>>. La p24 es una proteína importante para la integridad del virus y es un marcador que puede ser detectado en pruebas serológicas, especialmente en la fase temprana de la infección. Esta proteína encapsula el material genético del virus y las enzimas necesarias para su replicación."
+}, 
+{ 
+    "question": "¿Cuál es la principal complicación respiratoria asociada al SIDA?", 
+    "answer": "Neumonía por Pneumocystis jirovecii.", 
+    "explanation": "La <<neumonía por Pneumocystis jirovecii>> es una de las complicaciones respiratorias más comunes en pacientes con <<SIDA>>. Debido a la inmunosupresión severa, estos pacientes son especialmente susceptibles a infecciones oportunistas como la neumonía por este hongo. Sin tratamiento profiláctico adecuado, la neumonía por P. jirovecii puede ser potencialmente mortal en personas con conteo de CD4+ bajo."
+}, 
+{ 
+    "question": "¿Qué tipo de cáncer es altamente prevalente en pacientes con SIDA?", 
+    "answer": "Sarcoma de Kaposi.", 
+    "explanation": "El <<sarcoma de Kaposi>> es un cáncer vascular altamente prevalente en pacientes con <<SIDA>> y se asocia al <<virus del herpes humano tipo 8>> (HHV-8). Este cáncer se caracteriza por lesiones cutáneas y puede afectar otros órganos internos. La inmunosupresión debida al VIH aumenta el riesgo de desarrollar sarcoma de Kaposi y otras neoplasias, especialmente cuando el conteo de CD4+ es bajo."
+}, 
+{ 
+    "question": "¿Qué prueba confirma la infección por VIH tras un resultado positivo de ELISA?", 
+    "answer": "Western blot o PCR cuantitativa de carga viral.", 
+    "explanation": "Tras un resultado positivo en una prueba de <<ELISA>>, la <<infección por VIH>> se confirma mediante una prueba de <<Western blot>> o <<PCR cuantitativa de carga viral>>. El Western blot detecta proteínas específicas del VIH, mientras que la PCR mide directamente la cantidad de ARN viral en sangre. Ambas pruebas ofrecen una alta especificidad y son esenciales para confirmar el diagnóstico."
+}, 
+{ 
+    "question": "¿Cuál es el principal efecto adverso asociado a los inhibidores de la proteasa?", 
+    "answer": "Lipodistrofia y dislipidemia.", 
+    "explanation": "Los <<inhibidores de la proteasa>> (PI) utilizados en la terapia antirretroviral para el VIH están asociados con efectos adversos como <<lipodistrofia>> (redistribución anormal de grasa) y <<dislipidemia>> (niveles anormales de lípidos en sangre). Estos efectos secundarios aumentan el riesgo de desarrollar enfermedades metabólicas y cardiovasculares, y requieren manejo cuidadoso en el tratamiento a largo plazo."
+}, 
+{ 
+    "question": "¿Qué recuento de células CD4+ define clínicamente el SIDA?", 
+    "answer": "<200 células/µL.", 
+    "explanation": "Un <<recuento de células CD4+ menor a 200 células/µL>> es un criterio clínico para el diagnóstico de <<SIDA>> en personas con VIH. Este bajo conteo de CD4+ indica una inmunosupresión severa, lo cual aumenta significativamente el riesgo de infecciones oportunistas y neoplasias asociadas al SIDA. La clasificación a SIDA es importante para guiar el tratamiento y el manejo profiláctico de estas infecciones."
+}, 
+{ 
+    "question": "¿Qué mecanismo de resistencia utiliza el VIH frente a los inhibidores de la transcriptasa inversa?", 
+    "answer": "Mutaciones en la transcriptasa inversa.", 
+    "explanation": "El <<VIH>> puede desarrollar <<resistencia a los inhibidores de la transcriptasa inversa>> mediante la acumulación de <<mutaciones en el gen de la transcriptasa inversa>>. Estas mutaciones alteran la estructura de la enzima, reduciendo la eficacia de los inhibidores y permitiendo que el virus continúe replicándose. La aparición de resistencia puede limitar las opciones de tratamiento, por lo que el monitoreo y ajuste de la terapia antirretroviral es esencial."
+}, 
+{ 
+    "question": "¿Cuál es la duración del período ventana promedio en la infección por VIH antes de que sea detectable en pruebas de anticuerpos?", 
+    "answer": "2-6 semanas.", 
+    "explanation": "El <<período ventana>> promedio en la <<infección por VIH>> es de 2 a 6 semanas, durante el cual los anticuerpos específicos contra el virus aún no son detectables en pruebas serológicas. Durante esta fase, una persona infectada puede ser seronegativa en pruebas de anticuerpos, pero puede transmitir el virus a otros. Las pruebas de cuarta generación que detectan antígenos y anticuerpos permiten una detección más temprana del VIH."
+}, 
+{ 
+    "question": "¿Qué proteína del VIH facilita la entrada del virus fusionando su envoltura con la membrana de la célula huésped?", 
+    "answer": "Gp41.", 
+    "explanation": "La proteína <<gp41>> del <<VIH>> facilita la <<entrada del virus>> en la célula huésped al fusionar la <<envoltura viral con la membrana celular>>. Tras la unión inicial de gp120 con el receptor CD4 y el co-receptor (CCR5 o CXCR4), gp41 se expone y permite la fusión de las membranas, lo cual es esencial para la liberación del contenido viral en el citoplasma de la célula huésped."
+}, 
+{ 
+    "question": "¿Qué tipo de células presentadoras de antígenos captura el VIH en mucosas durante la transmisión sexual?", 
+    "answer": "Células dendríticas.", 
+    "explanation": "El <<VIH>> infecta y es capturado por <<células dendríticas>> en las <<mucosas>> durante la transmisión sexual. Estas células presentan el virus a los linfocitos T CD4+ en los ganglios linfáticos, facilitando la propagación inicial de la infección en el organismo. Las células dendríticas actúan como un reservorio y vehículo de transporte para el VIH hacia las áreas donde puede diseminarse más fácilmente."
+}, 
+{ 
+    "question": "¿Qué mutación genética en humanos proporciona resistencia a la infección por VIH?", 
+    "answer": "Mutación CCR5-Δ32.", 
+    "explanation": "La <<mutación CCR5-Δ32>> en el gen que codifica para el co-receptor CCR5 proporciona <<resistencia a la infección por VIH>> en personas homocigotas para esta mutación. La falta de expresión de CCR5 en la superficie celular impide la entrada del VIH en células T CD4+ y macrófagos, ya que el virus no puede unirse a este co-receptor necesario para su entrada. Esta mutación es más común en poblaciones europeas y ofrece una resistencia parcial o total contra el VIH."
+}
     ];
     let currentFlashcardIndex = 0;
     let currentFace = "front";
@@ -203,20 +932,16 @@
         const middleContent = document.querySelector('.middle');
         const backContent = document.querySelector('.back');
         
-        // Asignar el contenido de la flashcard actual
         frontContent.textContent = flashcards[currentFlashcardIndex].question;
         middleContent.textContent = flashcards[currentFlashcardIndex].answer;
         backContent.textContent = flashcards[currentFlashcardIndex].explanation;
 
-        // Asegurarse de que la cara de la pregunta esté visible
         showFace('front');
     }
 
     function showFace(face) {
         const faces = document.querySelectorAll('.flashcard-content');
         faces.forEach(faceContent => faceContent.style.display = 'none'); // Ocultar todas las caras
-
-        // Mostrar solo la cara seleccionada
         const newFaceElement = document.querySelector(`.${face}`);
         newFaceElement.style.display = 'flex';
     }
@@ -245,10 +970,10 @@
         const button = document.querySelector('.mode-toggle-btn');
         if (body.classList.contains('light-mode')) {
             body.classList.replace('light-mode', 'dark-mode');
-            button.textContent = "☀️"; // Icono de sol para el modo claro
+            button.textContent = "☀️";
         } else {
             body.classList.replace('dark-mode', 'light-mode');
-            button.textContent = "🌙"; // Icono de luna para el modo oscuro
+            button.textContent = "🌙";
         }
     }
 </script>
