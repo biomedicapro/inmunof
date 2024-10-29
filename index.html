@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards Profesionales</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+        .container, .start-container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .start-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+        }
+        .title {
+            font-size: 1.4em;
+            margin: 5px 0 15px;
+            font-weight: bold;
+        }
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .flashcard-content {
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Estilos para los modos de color */
+        .light-mode {
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        .dark-mode {
+            background-color: #333;
+            color: #f4f6f9;
+        }
+        .light-mode .flashcard-content {
+            background-color: #ffffff;
+            color: #333333;
+        }
+        .dark-mode .flashcard-content {
+            background-color: #1d1f27;
+            color: #ffffff;
+        }
+        /* Animaciones de transición */
+        .flashcard-content.fade-in {
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        .flashcard-content.fade-out {
+            animation: fadeOut 0.3s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        /* Controles */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+        }
+        button {
+            flex: 1;
+            padding: 6px;
+            font-size: 0.8em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .primary-btn {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .primary-btn:hover {
+            background-color: #0056b3;
+        }
+        .secondary-btn {
+            background-color: #28a745;
+            color: white;
+            width: 100%;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .secondary-btn:hover {
+            background-color: #218838;
+        }
+        .mode-toggle-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+        .mode-toggle-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body class="light-mode">
+
+<div class="start-container" id="startContainer">
+    <h2 class="title">Flashcards Profesionales</h2>
+    <button class="secondary-btn" onclick="initializeFlashcards('start')">Iniciar desde el principio</button>
+    <button class="secondary-btn" onclick="initializeFlashcards('resume')">Reanudar última flashcard</button>
+    <button class="mode-toggle-btn" onclick="toggleMode()">Cambiar a Modo Oscuro</button>
+</div>
+
+<div class="container" id="flashcardContainer" style="display:none;">
+    <div class="title">Flashcards Profesionales</div>
+    <div id="flashcard" class="flashcard">
+        <div class="flashcard-content front"></div>
+        <div class="flashcard-content middle"></div>
+        <div class="flashcard-content back"></div>
+    </div>
+    <div class="controls">
+        <button class="primary-btn" onclick="showFace('front')">Pregunta</button>
+        <button class="primary-btn" onclick="showFace('middle')">Respuesta</button>
+        <button class="primary-btn" onclick="showFace('back')">Explicación</button>
+    </div>
+    <div class="controls">
+        <button class="primary-btn" onclick="prevFlashcard()">Anterior</button>
+        <button class="primary-btn" onclick="nextFlashcard()">Siguiente</button>
+    </div>
+    <button class="secondary-btn" onclick="saveProgress()">Guardar Progreso</button>
+</div>
+
+<script>
+    const flashcards = [
+        { "question": "¿Qué es la inmunidad innata?", "answer": "Respuesta breve", "explanation": "Explicación detallada de la inmunidad innata." },
+        { "question": "¿Qué es el complemento?", "answer": "Respuesta breve", "explanation": "Explicación detallada del sistema de complemento." },
+        // Añadir más flashcards...
+    ];
+    let currentFlashcardIndex = 0;
+    let currentFace = "front";
+
+    function initializeFlashcards(option) {
+        const lastIndex = parseInt(localStorage.getItem('flashcardIndex'));
+        
+        if (option === 'resume' && lastIndex >= 0) {
+            currentFlashcardIndex = lastIndex;
+        } else {
+            currentFlashcardIndex = 0;
+        }
+        
+        document.getElementById('startContainer').style.display = 'none';
+        document.getElementById('flashcardContainer').style.display = 'block';
+        showFlashcard();
+        showFace('front'); // Mostrar la cara de la pregunta al iniciar
+    }
+
+    function showFlashcard() {
+        const frontContent = document.querySelector('.front');
+        const middleContent = document.querySelector('.middle');
+        const backContent = document.querySelector('.back');
+        
+        // Asignar el contenido de la flashcard actual
+        frontContent.textContent = flashcards[currentFlashcardIndex].question;
+        middleContent.textContent = flashcards[currentFlashcardIndex].answer;
+        backContent.textContent = flashcards[currentFlashcardIndex].explanation;
+
+        // Asegurarse de que la cara de la pregunta esté visible
+        showFace('front');
+    }
+
+    function showFace(face) {
+        const faces = document.querySelectorAll('.flashcard-content');
+        faces.forEach(faceContent => faceContent.style.display = 'none'); // Ocultar todas las caras
+
+        // Mostrar solo la cara seleccionada
+        const newFaceElement = document.querySelector(`.${face}`);
+        newFaceElement.style.display = 'flex';
+    }
+
+    function nextFlashcard() {
+        if (currentFlashcardIndex < flashcards.length - 1) {
+            currentFlashcardIndex++;
+            showFlashcard();
+        }
+    }
+
+    function prevFlashcard() {
+        if (currentFlashcardIndex > 0) {
+            currentFlashcardIndex--;
+            showFlashcard();
+        }
+    }
+
+    function saveProgress() {
+        localStorage.setItem('flashcardIndex', currentFlashcardIndex);
+        alert('Progreso guardado');
+    }
+
+    function toggleMode() {
+        const body = document.body;
+        const button = document.querySelector('.mode-toggle-btn');
+        if (body.classList.contains('light-mode')) {
+            body.classList.replace('light-mode', 'dark-mode');
+            button.textContent = "Cambiar a Modo Claro";
+        } else {
+            body.classList.replace('dark-mode', 'light-mode');
+            button.textContent = "Cambiar a Modo Oscuro";
+        }
+    }
+</script>
+
+</body>
+</html>
