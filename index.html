@@ -25,6 +25,7 @@
             padding: 15px;
             overflow: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
         }
         .start-container {
             display: flex;
@@ -126,12 +127,20 @@
         .secondary-btn:hover {
             background-color: #218838;
         }
+        /* Botón de modo claro/oscuro */
         .mode-toggle-btn {
-            background-color: #6c757d;
-            color: white;
+            background-color: transparent;
+            border: none;
+            color: inherit;
+            font-size: 1.2em;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            padding: 0;
         }
         .mode-toggle-btn:hover {
-            background-color: #5a6268;
+            color: #007bff;
         }
     </style>
 </head>
@@ -141,7 +150,6 @@
     <h2 class="title">Flashcards Profesionales</h2>
     <button class="secondary-btn" onclick="initializeFlashcards('start')">Iniciar desde el principio</button>
     <button class="secondary-btn" onclick="initializeFlashcards('resume')">Reanudar última flashcard</button>
-    <button class="mode-toggle-btn" onclick="toggleMode()">Cambiar a Modo Oscuro</button>
 </div>
 
 <div class="container" id="flashcardContainer" style="display:none;">
@@ -162,6 +170,9 @@
     </div>
     <button class="secondary-btn" onclick="saveProgress()">Guardar Progreso</button>
 </div>
+
+<!-- Botón para cambiar entre modos claro y oscuro (icono pequeño) -->
+<button class="mode-toggle-btn" onclick="toggleMode()">🌙</button>
 
 <script>
     const flashcards = [
@@ -234,10 +245,10 @@
         const button = document.querySelector('.mode-toggle-btn');
         if (body.classList.contains('light-mode')) {
             body.classList.replace('light-mode', 'dark-mode');
-            button.textContent = "Cambiar a Modo Claro";
+            button.textContent = "☀️"; // Icono de sol para el modo claro
         } else {
             body.classList.replace('dark-mode', 'light-mode');
-            button.textContent = "Cambiar a Modo Oscuro";
+            button.textContent = "🌙"; // Icono de luna para el modo oscuro
         }
     }
 </script>
